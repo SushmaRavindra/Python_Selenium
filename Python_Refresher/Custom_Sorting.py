@@ -90,10 +90,10 @@ print(sorted(portfolio, key=itemgetter('name')))
 print(sorted(portfolio, key=itemgetter('name', 'shares')))
 
 data = [
-        {'fname': 'Brian', 'uid': 1003, 'lname': 'Jones'},
-        {'fname': 'David', 'uid': 1002, 'lname': 'Beazley'},
-        {'fname': 'John', 'uid': 1001, 'lname': 'Cleese'},
-        {'fname': 'Big', 'uid': 1004, 'lname': 'Jones'},
+    {'fname': 'steve', 'lname': 'jobs', 'pay': 1000},
+    {'fname': 'bill', 'lname': 'gates', 'pay': 2000},
+    {'fname': 'tim', 'lname': 'cook', 'pay': 2000},
+    {'fname': 'phil', 'lname': 'schiller', 'pay': 3000},
 ]
 
 print(sorted(data, key=itemgetter('fname', 'lname')))
