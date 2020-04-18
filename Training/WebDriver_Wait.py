@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.common.by import By
 
 driver = webdriver.Chrome('/home/sandeep/Desktop/Selenium/chromedriver')
 driver.get("file:///home/sandeep/Desktop/Selenium/HTML_Pages/Loading.html")
@@ -25,6 +26,8 @@ wait = WebDriverWait(driver, timeout=10)
 
 # By Locator
 wait.until(ec.invisibility_of_element_located(("xpath", _xpath)))
+    # OR we can use By class
+wait.until(ec.invisibility_of_element_located((By.XPATH, _xpath)))
 driver.find_element_by_name("mname").send_keys("Middle Name")
 
 driver.close()
