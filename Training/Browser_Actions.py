@@ -1,5 +1,7 @@
 from selenium import webdriver
 
+# What is WebDriver?
+# WebDriver is an API that interacts with Real Browsers through respective driver exe.
 # Selenium Code to Launch Chrome Browser
 driver = webdriver.Chrome('/home/sandeep/Desktop/Selenium/chromedriver')
 
@@ -19,6 +21,9 @@ driver.maximize_window()
 
 # Selenium Code to click on browser forward button
 driver.forward()
+
+# Selenium Code to click on browser back button
+driver.back()
 
 # Selenium Code to fetch the title of the web page
 driver.title

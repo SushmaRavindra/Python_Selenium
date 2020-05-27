@@ -31,3 +31,5 @@ wait.until(ec.invisibility_of_element_located((By.XPATH, _xpath)))
 driver.find_element_by_name("mname").send_keys("Middle Name")
 
 driver.close()
+
+# https://www.seleniumeasy.com/test/dynamic-data-loading-demo.html

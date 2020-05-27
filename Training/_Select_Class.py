@@ -23,6 +23,8 @@ driver.find_element_by_xpath("//div[text()='ted States of America']").click()
 cars = driver.find_elements_by_xpath("//select[@id='multiple_cars']")
 s = Select(cars)
 
+# Selecting Course in http://www.qspiders.com/courses auto suggest listbox
+
 all_items = s.options
 items = [item.text for item in all_items]
 
