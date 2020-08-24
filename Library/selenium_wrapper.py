@@ -23,12 +23,10 @@ class Wrapper:
         loctype, locvalue = locator
         self.driver.find_element(loctype, locvalue).clear()
         self.driver.find_element(loctype, locvalue).send_keys(value)
-        time.sleep(2)
 
     def click_element(self, locator):
         loctype, locvalue = locator
         self.driver.find_element(loctype, locvalue).click()
-        time.sleep(2)
 
     def select_item(self, locator, item):
         loctype, locvalue = locator

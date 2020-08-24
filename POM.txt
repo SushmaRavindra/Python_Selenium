@@ -1,0 +1,50 @@
+Class BasePage
+	def __init__(self, driver):
+		self.driver = driver
+	
+	def click_register(self):
+		pass
+
+	def click_login(self):
+		pass
+	
+	def click_shoppingcart(self):
+		pass
+
+
+Class HomePage(BasePage):
+
+	def enter_email(self):
+		pass
+	
+	def click_subscribe(self):
+		pass
+	
+	def click_vote(self):
+		pass
+	
+	def select_rating(self):
+		pass
+
+Class RegisterPage(BasePage):
+	
+	def select_gender(self):
+		pass
+	
+	def enter_firstname(self):
+		pass
+
+	def enter_lastname(self):
+		pass
+
+	def enter_email(self):
+		pass
+	
+	def enter_password(self):
+		pass
+
+	def enter_confirm_password(self):
+		pass
+
+	def click_register(self):
+		pass
