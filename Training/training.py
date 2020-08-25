@@ -18,18 +18,37 @@ class element_to_be_visible_enabled:
             return False
 
 
-def enter_text(locator, value):
+def wait(visible=True, enabled=True, max_timeout=15):
+    def decorate(func):
+        def wrapper(*args, **kwargs):
+            locator, = args
+            w = WebDriverWait(driver, max_timeout)
+            if visible and enabled:
+                w.until(element_to_be_visible_enabled(locator))
+            elif visible and not enabled:
+                w.until(ec.visibility_of_element_located(locator))
+            elif not visible:
+                w.until(ec.invisibility_of_element_located(locator))
+            return func(*args, **kwargs)
+        return wrapper
+    return decorate
+
+
+@wait()
+def enter_text(locator, *, value):
     loctype, locvalue = locator
     driver.find_element(loctype, locvalue).clear()
     driver.find_element(loctype, locvalue).send_keys(value)
 
 
+@wait()
 def click_element(locator):
     loctype, locvalue = locator
     driver.find_element(loctype, locvalue).click()
 
 
-def select_item(locator, item):
+@wait()
+def select_item(locator, *, item):
     loctype, locvalue = locator
     element = driver.find_element(loctype, locvalue)
     select = Select(element)
@@ -42,35 +61,16 @@ def select_item(locator, item):
         select.select_by_index(item)
 
 
-def wait(locator, *, visible=True, enabled=True, max_timeout=15):
-    w = WebDriverWait(driver, max_timeout)
-    if visible and enabled:
-        w.until(element_to_be_visible_enabled(locator))
-    elif visible and not enabled:
-        w.until(ec.visibility_of_element_located(locator))
-    elif not visible:
-        w.until(ec.invisibility_of_element_located(locator))
-
-
 driver = webdriver.Chrome('./chromedriver')
-driver.get("file:///Users/sandeep/Documents/Python_Selenium/HTML_Pages/_loading.html")
+driver.get("http://demowebshop.tricentis.com/")
 
-wait(('id', 'loader'), visible=False, max_timeout=2)
-enter_text(('name', 'fname'), "sandeep")
-
-
-wait(('link text', "Register"), max_timeout=5)
 click_element(('link text', "Register"))
 
-wait(("id", "gender-male"), max_timeout=1)
 click_element(("id", "gender-male"))
 
-wait(("name", "FirstName"), max_timeout=1)
-enter_text(("name", "FirstName"), "Sandeep")
+enter_text(("name", "FirstName"), value="Sandeep")
 
-wait(("name", "LastName"), max_timeout=1)
-enter_text(("name", "LastName"), "Suryaprasad")
+enter_text(("name", "LastName"), value="Suryaprasad")
 
-wait(("id", "register-button"), max_timeout=1)
 click_element(("id", "register-button"))
 
