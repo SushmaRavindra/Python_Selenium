@@ -1,0 +1,12 @@
+Mail                 https://mail.yahoo.com/?.src=fp         
+Coronavirus          https://news.yahoo.com/coronavirus      
+News                 https://news.yahoo.com/                 
+Finance              https://finance.yahoo.com/              
+Sports               https://sports.yahoo.com/               
+2020 Election        https://www.yahoo.com/elections         
+Black Lives Matter   https://search.yahoo.com/search?ei=UTF-8&fr=hubblm&fr2=p:fp,m:nav&p=Black%20Lives%20Matter
+Entertainment        https://www.yahoo.com/entertainment/    
+Life                 https://www.yahoo.com/lifestyle/        
+Shopping             https://shopping.yahoo.com/             
+Subscriptions        https://subscriptions.yahoo.com/?ncid=mbr_ryhacqnav00000017
+                     https://www.yahoo.com/everything/       

@@ -3,42 +3,81 @@ import time
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
-
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 
 driver = webdriver.Chrome('./chromedriver')
-driver.get("http://www.qspiders.com/courses")
+driver.get("http://www.qspiders.com/")
 time.sleep(5)
 
+menus = ['About', 'Blog', 'Projects', 'Contact']
 
-f = open('batches.csv', 'w')
+menus = driver.find_elements_by_xpath("//a")
+ele1 = driver.find_element_by_xpath("//a[text()='Gallery ']")
+ele2 = driver.find_element_by_xpath("//a[text()='Recruitment Drive']")
 
-_courses = ['Advanced Selenium-Software Testing Course',
-            ' Python - Selenium',
-            'Api Testing']
+actions = ActionChains(driver)
+actions.send_keys(Keys.ARROW_DOWN).perform()
+time.sleep(1)
+actions.send_keys(Keys.PAGE_DOWN).perform()
+actions.send_keys(Keys.ESCAPE).perform()
+actions.send_keys(Keys.ENTER).perform()
+actions.send_keys(Keys.PAGE_UP).perform()
+actions.send_keys(Keys.ARROW_DOWN).perform()
+actions.send_keys(Keys.ARROW_UP).perform()
 
-print('Course, Branch, Date, Timings', file=f)
+for _ in range(0, 5):
+    actions.send_keys("\ue015").perform()
+    time.sleep(1)
 
-for _course in _courses:
-    _xpath = f"//span[text()='{_course}']/../..//a[text()='Show batches']"
+for _ in range(0, 5):
+    actions.send_keys("\ue013").perform()
+    time.sleep(1)
 
-    driver.find_element_by_xpath(_xpath).click()
+actions.move_to_element(ele1).perform()
+time.sleep(1)
+actions.move_to_element(ele2).perform()
+time.sleep(1)
+ele2.click()
 
-    time.sleep(3)
 
-    _branches = driver.find_elements_by_xpath("//td[@class='views-field views-field-field-branch']")
-    _dates = driver.find_elements_by_xpath("//td[@class='views-field views-field-field--batch-commencing-date']/span")
-    _timings = driver.find_elements_by_xpath("//td[@class='views-field views-field-field--batch-commencing-date-1']/span")
+# links = driver.find_elements_by_xpath("//ul[@id='header-nav-bar']//a")
+# f = open('url.txt', 'w')
+# for link in links:
+#     text = link.text
+#     url = link.get_attribute("href")
+#     print(f'{text:<20} {url:<40}', file=f)
+# f.close()
 
-    for _branch, _date, _timing in zip(_branches, _dates, _timings):
-        print(_course, ',', _branch.text, ',', _date.text, ',', _timing.text, file=f)
-
-    # sep = "="
-    # print(sep*50, file=f)
-
-    driver.find_element_by_xpath("//button[text()='Close']").click()
-
-f.close()
-
+# f = open('batches.csv', 'w')
+#
+# _courses = ['Advanced Selenium-Software Testing Course',
+#             ' Python - Selenium',
+#             'Api Testing']
+#
+# print('Course, Branch, Date, Timings', file=f)
+#
+# for _course in _courses:
+#     _xpath = f"//span[text()='{_course}']/../..//a[text()='Show batches']"
+#
+#     driver.find_element_by_xpath(_xpath).click()
+#
+#     time.sleep(3)
+#
+#     _branches = driver.find_elements_by_xpath("//td[@class='views-field views-field-field-branch']")
+#     _dates = driver.find_elements_by_xpath("//td[@class='views-field views-field-field--batch-commencing-date']/span")
+#     _timings = driver.find_elements_by_xpath("//td[@class='views-field views-field-field--batch-commencing-date-1']/span")
+#
+#     for _branch, _date, _timing in zip(_branches, _dates, _timings):
+#         print(_course, ',', _branch.text, ',', _date.text, ',', _timing.text, file=f)
+#
+#     # sep = "="
+#     # print(sep*50, file=f)
+#
+#     driver.find_element_by_xpath("//button[text()='Close']").click()
+#
+# f.close()
+#
 
 # click_element(('link text', "Register"))
 #
