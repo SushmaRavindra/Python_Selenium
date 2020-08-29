@@ -6,39 +6,39 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 
-driver = webdriver.Chrome('./chromedriver')
-driver.get("http://www.qspiders.com/")
-time.sleep(5)
-
-menus = ['About', 'Blog', 'Projects', 'Contact']
-
-menus = driver.find_elements_by_xpath("//a")
-ele1 = driver.find_element_by_xpath("//a[text()='Gallery ']")
-ele2 = driver.find_element_by_xpath("//a[text()='Recruitment Drive']")
-
-actions = ActionChains(driver)
-actions.send_keys(Keys.ARROW_DOWN).perform()
-time.sleep(1)
-actions.send_keys(Keys.PAGE_DOWN).perform()
-actions.send_keys(Keys.ESCAPE).perform()
-actions.send_keys(Keys.ENTER).perform()
-actions.send_keys(Keys.PAGE_UP).perform()
-actions.send_keys(Keys.ARROW_DOWN).perform()
-actions.send_keys(Keys.ARROW_UP).perform()
-
-for _ in range(0, 5):
-    actions.send_keys("\ue015").perform()
-    time.sleep(1)
-
-for _ in range(0, 5):
-    actions.send_keys("\ue013").perform()
-    time.sleep(1)
-
-actions.move_to_element(ele1).perform()
-time.sleep(1)
-actions.move_to_element(ele2).perform()
-time.sleep(1)
-ele2.click()
+# driver = webdriver.Chrome('./chromedriver')
+# driver.get("http://www.qspiders.com/")
+# time.sleep(5)
+#
+# menus = ['About', 'Blog', 'Projects', 'Contact']
+#
+# menus = driver.find_elements_by_xpath("//a")
+# ele1 = driver.find_element_by_xpath("//a[text()='Gallery ']")
+# ele2 = driver.find_element_by_xpath("//a[text()='Recruitment Drive']")
+#
+# actions = ActionChains(driver)
+# actions.send_keys(Keys.ARROW_DOWN).perform()
+# time.sleep(1)
+# actions.send_keys(Keys.PAGE_DOWN).perform()
+# actions.send_keys(Keys.ESCAPE).perform()
+# actions.send_keys(Keys.ENTER).perform()
+# actions.send_keys(Keys.PAGE_UP).perform()
+# actions.send_keys(Keys.ARROW_DOWN).perform()
+# actions.send_keys(Keys.ARROW_UP).perform()
+#
+# for _ in range(0, 5):
+#     actions.send_keys("\ue015").perform()
+#     time.sleep(1)
+#
+# for _ in range(0, 5):
+#     actions.send_keys("\ue013").perform()
+#     time.sleep(1)
+#
+# actions.move_to_element(ele1).perform()
+# time.sleep(1)
+# actions.move_to_element(ele2).perform()
+# time.sleep(1)
+# ele2.click()
 
 
 # links = driver.find_elements_by_xpath("//ul[@id='header-nav-bar']//a")
@@ -142,3 +142,112 @@ ele2.click()
 #         select.select_by_visible_text(item)
 #     else:
 #         select.select_by_index(item)
+
+import csv
+
+
+def make_tuple(row):
+    return tuple(row)
+
+
+def make_dict(row):
+    return {
+        "country": row[0],
+        "_date": row[1],
+        "cases": row[2],
+        "per_mil": row[3]
+    }
+
+
+class Covid:
+    def __init__(self, country, cases, _date, per_mil):
+        self.country = country
+        self.cases = cases
+        self._date = _date
+        self.per_mil = per_mil
+
+
+# class Covid:
+#     __slots__ = ['country', 'cases', '_date', 'per_mil']
+#
+#     def __init__(self, country, cases, _date, per_mil):
+#         self.country = country
+#         self.cases = cases
+#         self._date = _date
+#         self.per_mil = per_mil
+
+# from collections import namedtuple
+# Covid = namedtuple('Covid', ['country', 'cases', 'date_', 'per_mil'])
+
+def make_instance(row):
+    return Covid(row[0], row[1], row[2], row[3])
+
+def make_list(row):
+    return list(row)
+
+import tracemalloc
+
+def memory(func):
+    def wrapper(*args, **kwargs):
+        tracemalloc.start()
+        result = func(*args, **kwargs)
+        print(tracemalloc.get_traced_memory())
+        tracemalloc.stop()
+        return result
+    return wrapper
+
+
+@memory
+def read_csv():
+    records = []
+    with open('_covid_data.csv', 'r') as f:
+        rows = csv.reader(f)
+        headers = next(rows)    # headers
+        # make Record
+        for row in rows:
+            records.append(make_list(row))
+    return records
+
+
+
+# d = read_csv()
+
+# for item in d:
+#     print(item)
+
+
+d1 = {'a': 1, 'b': 2}
+d2 = {'a': 3, 'b': 4}
+a = dict([(1, 2), (3, 4)])
+print(a)
+
+print(id(d1))
+print(id(d2))
+
+for key, value in d1.items():
+    print(key, '\t', id(key))
+
+for key, value in d2.items():
+    print(key, '\t', id(key))
+
+
+
+class Spam(object):
+    __slots__ = ('a', 'b')
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+
+
+s1 = Spam(1, 2)
+s2 = Spam(3, 4)
+
+print(id(s1.__dict__))
+print(id(s2.__dict__))
+
+for key, value in s1.__dict__.items():
+    print(key, '\t', id(key))
+
+for key, value in s2.__dict__.items():
+    print(key, '\t', id(key))
+
