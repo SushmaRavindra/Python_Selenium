@@ -25,7 +25,7 @@ class Covid:
         self.date_ = row[3]
         self.cases = row[5]
 
-
+getattr()
 from collections import namedtuple
 Covid = namedtuple('Covid', ['country', 'date_', 'cases'])
 
