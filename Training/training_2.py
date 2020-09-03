@@ -1,93 +1,81 @@
 from selenium import webdriver
+from selenium.webdriver.support.select import Select
 import time
 
-driver = webdriver.Chrome("./chromedriver")
+# driver = webdriver.Chrome("./chromedriver")
+# driver.get("file:///Users/sandeep/Documents/Python_Selenium/HTML_Pages/Standard_listbox.html")
+# time.sleep(3)
 
-driver.get("http://demowebshop.tricentis.com/")
-time.sleep(3)
+# lst_box = driver.find_element_by_xpath("//select[@id='multiple_cars']")
 
-# lst_checkboxes = driver.find_elements_by_xpath("//input[@name='download']")
-# lst_links = driver.find_elements_by_xpath("//a")
-# lst_links = driver.find_elements_by_tag_name("a")
-# lst_images = driver.find_elements_by_tag_name("img")
-lst_images = driver.find_elements_by_xpath("//img")
+# curr = driver.find_element_by_name("currency")
+# s = Select(curr)
+# s.select_by_value("INR")
+# s.select_by_index(1)
+# s.select_by_visible_text("Indian Rupees")
 
-print(len(lst_images))
+# s = Select(lst_box)
+# print(s.is_multiple)
+# all_opts = s.options
+#
+# items = [opt.text for opt in all_opts]
+#
+# for item in items:
+#     s.select_by_visible_text(item)
+#     time.sleep(0.3)
+#
+# s.deselect_all()
 
-# for link in lst_links:
-#     print(link.text)
 
-# print(len(lst_checkboxes))
 
-# for element in reversed(lst_checkboxes):
-#     element.click()
+# cars = ['Audi', 'Ford', 'Mercedes']
+# for car in cars:
+#     s.select_by_visible_text(car)
 #     time.sleep(1)
 
-# for element in lst_checkboxes[::-1]:
-#     element.click()
-#     time.sleep(1)
+# s.deselect_all()
+# s.deselect_by_visible_text("Audi")
+# s.deselect_by_index(0)
+# s.deselect_by_value("0")
 
-# for i in range(0, len(lst_checkboxes)):
-#     lst_checkboxes[i].click()
-#     time.sleep(1)
+# all_opts = s.all_selected_options
 
-# for i in range(len(lst_checkboxes)-1, -1, -1):
-#     lst_checkboxes[i].click()
-#     time.sleep(1)
+# for opt in all_opts:
+#     print(opt.text)
 
-# for element in lst_checkboxes[::2]:
-#     element.click()
-#     time.sleep(1)
 
-# lst_checkboxes[0].click()
+# s.select_by_visible_text("Mercedes")
 #
 # time.sleep(1)
 #
-# lst_checkboxes[-1].click()
+# print(s.first_selected_option.text)
+#
+# time.sleep(1)
+#
+# s.select_by_visible_text("Audi")
+#
+# print(s.first_selected_option.text)
+
+# opts = s.options
+
+# cars = [opt.text for opt in opts]  # List Comprehension
+
+# search_car = 'Maruti'
+
+# s.select_by_visible_text("Maruti")
+
+# for index, car in enumerate(cars):
+#     if car == search_car:
+#         s.select_by_visible_text(car)
+#         print(index)
 
 
 
-# driver.find_element_by_xpath("//a[text()='Register']").click()
-# time.sleep(1)
-# driver.find_element_by_xpath("//input[@value='M']").click()
-# time.sleep(1)
-# driver.find_element_by_xpath("//input[@name='FirstName']").send_keys("Sandeep")
-# time.sleep(1)
-# driver.find_element_by_xpath("//input[@id='LastName']").send_keys("Suryaprasad")
-# time.sleep(1)
-# driver.find_element_by_xpath("//input[@class='button-1 register-next-step-button']").click()
-#
-# driver.find_element_by_xpath("//input[@name='NewsletterEmail']").send_keys("abc@abc.com")
-# for index in range(1, 5):
-#     _xpath = f"//input[@id='pollanswers-{index}']"
-#     driver.find_element_by_xpath(_xpath).click()
-#     driver.find_element_by_xpath("//input[@value='Vote']").click()
+# for index, item in enumerate(items):
+#     s.select_by_index(index)
+#     time.sleep(0.5)
 
 
-# General Form of CSS Selector
-# HTMLTAG[Property=value]
 
-# General form for xpath
-# HTML[@property=value]
 
-# driver.find_element_by_css_selector("input[type='text']").send_keys("Sandeep")
-# driver.find_element_by_css_selector("input[type='password']").send_keys("Password123")
-#
-#
-# driver.find_element_by_link_text("Register").click()
-#
-# time.sleep(1)
-#
-# driver.find_element_by_id("gender-male").click()
-#
-# time.sleep(1)
-#
-# driver.find_element_by_name("FirstName").send_keys("Sandeep")
-#
-# time.sleep(1)
-#
-# driver.find_element_by_id("LastName").send_keys("Suryaprasad")
-#
-# time.sleep(1)
-#
-# driver.find_element_by_name("register-button").click()
+
