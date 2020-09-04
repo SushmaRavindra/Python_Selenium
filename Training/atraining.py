@@ -8,12 +8,21 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
 driver = webdriver.Chrome('./chromedriver')
-driver.get("file:///Users/sandeep/Documents/Python_Selenium/HTML_Pages/Autocomplete_list.html")
+driver.get("https://www.naukri.com/")
 time.sleep(4)
 
-driver.find_element_by_name("myCountry").send_keys("Un")
-time.sleep(1)
-driver.find_element_by_xpath("//strong[text()='United States']").click()
+win_handles = driver.window_handles
+for index, win in enumerate(win_handles):
+    if index == 0:
+        continue
+    driver.switch_to.window(win_handles[index])
+    driver.close()
+    time.sleep(1)
+
+
+# driver.find_element_by_name("myCountry").send_keys("Un")
+# time.sleep(1)
+# driver.find_element_by_xpath("//strong[text()='United States']").click()
 
 # actions = ActionChains(driver)
 # for _ in range(3):
