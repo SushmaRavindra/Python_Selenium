@@ -1,5 +1,8 @@
 import unittest
-from Training.demo import Portfolio
+# from Training.demo import Portfolio
+# from Training.demo import Portfolio
+from demo import Portfolio
+from Library.config import Config
 
 
 class Test_Portfolio(unittest.TestCase):
