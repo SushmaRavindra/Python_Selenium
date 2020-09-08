@@ -11,13 +11,15 @@ driver = webdriver.Chrome('./chromedriver')
 driver.get("https://www.naukri.com/")
 time.sleep(4)
 
-win_handles = driver.window_handles
-for index, win in enumerate(win_handles):
-    if index == 0:
-        continue
-    driver.switch_to.window(win_handles[index])
-    driver.close()
-    time.sleep(1)
+driver.save_screenshot('demo.png')
+
+# win_handles = driver.window_handles
+# for index, win in enumerate(win_handles):
+#     if index == 0:
+#         continue
+#     driver.switch_to.window(win_handles[index])
+#     driver.close()
+#     time.sleep(1)
 
 
 # driver.find_element_by_name("myCountry").send_keys("Un")
@@ -39,6 +41,7 @@ for index, win in enumerate(win_handles):
 # driver.find_element_by_xpath("//button[text()='Try it']").click()
 # print(driver.switch_to.alert.text)
 # driver.switch_to.alert.dismiss()
+
 
 #
 # for win_id in win_handles:

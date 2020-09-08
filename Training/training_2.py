@@ -1,53 +1,86 @@
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 import time
 
 
 driver = webdriver.Chrome('./chromedriver')
+driver.get("file:///Users/sandeep/Documents/Python_Selenium/HTML_Pages/Loading.html")
 
+time.sleep(10)
+w = WebDriverWait(driver, 10)
 
-driver.get("file:///Users/sandeep/Documents/Python_Selenium/HTML_Pages/Standard_listbox.html")
-time.sleep(3)
+ele_fname = driver.find_element_by_name("fname")
 
+w.until(ec.visibility_of(ele_fname), message="Element could not be loaded after timeout period")
 
-def enter_text(locator, *, value):
-    locatortype, locatorvalue = locator
-    driver.find_element(locatortype, locatorvalue).clear()
-    driver.find_element(locatortype, locatorvalue).send_keys(value)
-
-
-def click_element(locator):
-    locatortype, locatorvalue = locator
-    driver.find_element(locatortype, locatorvalue).click()
-
-
-def select_item(locator, *, item):
-    locatortype, locatorvalue = locator
-    lst_box = driver.find_element(locatortype, locatorvalue)
-    s = Select(lst_box)
-    items = [opt.text for opt in s.options]
-    if isinstance(item, str):
-        if item not in items:
-            raise ValueError(f'{item} not found in the list')
-        s.select_by_visible_text(item)
-    else:
-        if item > len(items):
-            raise IndexError('Index Error')
-        s.select_by_index(item)
-
-
-def select_items(locator, *, items):
-    for item in items:
-        try:
-            select_item(locator, item=item)
-            time.sleep(1)
-        except (ValueError, IndexError):
-            print(f'{item} was not found in the multi select listbox')
-            continue
+ele_fname.send_keys("Sandeep")
 
 
 
-select_items(("id", "multiple_cars"), items=['Maruti', 15, 'Audi', 'Jaguar', 'Mercedes'])
+
+
+
+
+
+
+
+
+
+
+# def enter_text(locator, *, value):
+#     locatortype, locatorvalue = locator
+#     driver.find_element(locatortype, locatorvalue).clear()
+#     driver.find_element(locatortype, locatorvalue).send_keys(value)
+#
+#
+# def click_element(locator):
+#     locatortype, locatorvalue = locator
+#     driver.find_element(locatortype, locatorvalue).click()
+#
+#
+# def select_item(locator, *, item):
+#     locatortype, locatorvalue = locator
+#     lst_box = driver.find_element(locatortype, locatorvalue)
+#     s = Select(lst_box)
+#     items = [opt.text for opt in s.options]
+#     if isinstance(item, str):
+#         if item not in items:
+#             raise ValueError(f'{item} not found in the list')
+#         s.select_by_visible_text(item)
+#     else:
+#         if item > len(items):
+#             raise IndexError('Index Error')
+#         s.select_by_index(item)
+#
+#
+# def select_items(locator, *, items):
+#     for item in items:
+#         try:
+#             select_item(locator, item=item)
+#             time.sleep(1)
+#         except (ValueError, IndexError):
+#             print(f'{item} was not found in the multi select listbox')
+#             continue
+
+
+
+
+
+
+# click_element(("xpath", "//a[text()='Register']"))
+# time.sleep(1)
+# click_element(("id", "gender-male"))
+# time.sleep(1)
+# enter_text(("name", "FirstName"), value="Sandeep")
+# time.sleep(1)
+# enter_text(("name", "LastName"), value="Suryaprasad")
+# time.sleep(1)
+# click_element(("name", "register-button"))
+
+
+# select_items(("id", "multiple_cars"), items=['Maruti', 15, 'Audi', 'Jaguar', 'Mercedes'])
 
 # lst_box = driver.find_element_by_id("standard_cars")
 
