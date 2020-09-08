@@ -7,11 +7,25 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
-driver = webdriver.Chrome('./chromedriver')
-driver.get("https://www.naukri.com/")
-time.sleep(4)
+import xlrd
+workbook = xlrd.open_workbook('/Users/sandeep/Documents/Demo/Data/Objects.xlsx')
+worksheet = workbook.sheet_by_name("RegistrationPage")
+rows = worksheet.get_rows()
+headers = next(rows)    # Skipping Headers
+Registration_Objects = {row[0].value: (row[1].value, row[2].value) for row in rows}
 
-driver.save_screenshot('demo.png')
+print(Registration_Objects['txt_firstname'])
+
+
+
+
+
+
+# driver = webdriver.Chrome('./chromedriver')
+# driver.get("https://www.naukri.com/")
+# time.sleep(4)
+
+# driver.save_screenshot('demo.png')
 
 # win_handles = driver.window_handles
 # for index, win in enumerate(win_handles):
