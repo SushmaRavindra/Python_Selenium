@@ -2,26 +2,20 @@ from selenium import webdriver
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+from selenium.common import exceptions
 import time
 
 
 driver = webdriver.Chrome('./chromedriver')
-driver.get("file:///Users/sandeep/Documents/Python_Selenium/HTML_Pages/Loading.html")
 
-time.sleep(10)
+driver.get("file:///Users/sandeep/Documents/Python_Selenium/HTML_Pages/Progressbar.html")
+
+
+driver.find_element_by_xpath("//button[text()='Click Me']").click()
+# progress_bar = driver.find_element_by_xpath("//div[text()='100%']")
+
 w = WebDriverWait(driver, 10)
-
-ele_fname = driver.find_element_by_name("fname")
-
-w.until(ec.visibility_of(ele_fname), message="Element could not be loaded after timeout period")
-
-ele_fname.send_keys("Sandeep")
-
-
-
-
-
-
+w.until(ec.visibility_of_element_located(("xpath", "//div[text()='100%']")), message="Element could not be loaded after timeout period")
 
 
 
