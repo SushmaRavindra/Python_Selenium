@@ -7,21 +7,7 @@ import time
 
 
 driver = webdriver.Chrome('./chromedriver')
-
-driver.get("file:///Users/sandeep/Documents/Python_Selenium/HTML_Pages/Progressbar.html")
-
-
-driver.find_element_by_xpath("//button[text()='Click Me']").click()
-# progress_bar = driver.find_element_by_xpath("//div[text()='100%']")
-
-w = WebDriverWait(driver, 10)
-w.until(ec.visibility_of_element_located(("xpath", "//div[text()='100%']")), message="Element could not be loaded after timeout period")
-
-
-
-
-
-
+driver.get("file:///Users/sandeep/Documents/Python_Selenium/HTML_Pages/Loading.html")
 
 # def enter_text(locator, *, value):
 #     locatortype, locatorvalue = locator
@@ -29,6 +15,7 @@ w.until(ec.visibility_of_element_located(("xpath", "//div[text()='100%']")), mes
 #     driver.find_element(locatortype, locatorvalue).send_keys(value)
 #
 #
+
 # def click_element(locator):
 #     locatortype, locatorvalue = locator
 #     driver.find_element(locatortype, locatorvalue).click()
@@ -57,6 +44,55 @@ w.until(ec.visibility_of_element_located(("xpath", "//div[text()='100%']")), mes
 #         except (ValueError, IndexError):
 #             print(f'{item} was not found in the multi select listbox')
 #             continue
+
+
+class element_visibility_and_enabled:
+    def __init__(self, locator):
+        self.locator = locator
+
+    def __call__(self, driver):
+        loctype, locvalue = self.locator
+        element = driver.find_element(loctype, locvalue)
+        if element.is_enabled() and element.is_displayed():
+            return True
+        else:
+            return False
+
+
+def element_visibility_enable(locator):
+    def wrapper(driver):
+        loctype, locvalue = locator
+        element = driver.find_element(loctype, locvalue)
+        if element.is_enabled() and element.is_displayed():
+            return True
+        else:
+            return False
+    return wrapper
+
+
+def wait_element_to_be_present(locator, item):
+    def wrapper(driver):
+        loctype, locvalue = locator
+        element = driver.find_element(loctype, locvalue)
+        s = Select(element)
+        items = [opt.text for opt in s.options]
+        if item not in items:
+            return False
+        else:
+            return True
+    return wrapper
+
+
+w = WebDriverWait(driver, 15)
+# s = element_visibility_and_enabled(("name", "fname"))
+s = element_visibility_enable(("name", "fname"))
+w.until(s)
+driver.find_element_by_name("fname").send_keys("Hello")
+
+
+
+
+
 
 
 
