@@ -7,14 +7,94 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
-import xlrd
-workbook = xlrd.open_workbook('/Users/sandeep/Documents/Demo/Data/Objects.xlsx')
-worksheet = workbook.sheet_by_name("RegistrationPage")
-rows = worksheet.get_rows()
-headers = next(rows)    # Skipping Headers
-Registration_Objects = {row[0].value: (row[1].value, row[2].value) for row in rows}
 
-print(Registration_Objects['txt_firstname'])
+def greet():
+    return 'Hello World'
+
+
+def demo():
+    return 'demo'
+
+
+def log(func):
+    def wrapper(*args, **kwargs):
+        print('Wrapping')
+        return func(*args, **kwargs)
+
+    return wrapper
+
+
+def logging(cls):
+    for key, value in cls.__dict__.items():
+        print(key, '-->', value)
+        if callable(value):
+            setattr(cls, key, log(value))
+    return cls
+
+
+@logging
+class Spam:
+
+    def __init__(self, value, fname, lname):
+        self.value = value
+        self.fname = fname
+        self.lname = lname
+
+    def add(self, a, b):
+        return a + b
+
+    def sub(self, a, b):
+        return a - b
+
+    def mul(self, a, b):
+        return a * b
+
+
+@logging
+class Demo:
+    def __call__(self):
+        print('Calling')
+
+# import xlrd
+# workbook = xlrd.open_workbook('/Users/sandeep/Documents/Python_Selenium_FW/Data/TestData.xlsx')
+# worksheet = workbook.sheet_by_name("Registration")
+# rows = worksheet.get_rows()     # Generator Object
+#
+# # Getting Headers
+# for rowno, row in enumerate(rows):
+#     if not row[0].value == "test_01":
+#         continue
+#     headers = worksheet.row_values(rowno-1, start_colx=1)
+#     break
+# print(tuple(headers))
+#
+# # Getting Actual Test Data
+# rows = worksheet.get_rows()     # Generator Object
+# temp_data = []
+# for rowno, row in enumerate(rows):
+#     if row[0].value == 'test_01':
+#         temp = worksheet.row_values(rowno, start_colx=1)
+#         temp_data.append(tuple(temp))
+#
+# final_data = []
+# for item in temp_data:
+#     if item[0] == 'Yes':
+#         final_data.append(item[1:])
+#
+# print(final_data)
+#
+#
+# headers, data = [("Firstname", "LastNmae"), [("Steve", "JObs"), ("Bill", "Gates")]]
+#
+#
+# print(headers)
+# print(data)
+
+
+
+
+
+
 
 
 
@@ -22,8 +102,14 @@ print(Registration_Objects['txt_firstname'])
 
 
 # driver = webdriver.Chrome('./chromedriver')
-# driver.get("https://www.naukri.com/")
-# time.sleep(4)
+# driver.get("file:///Users/sandeep/Documents/Python_Selenium/HTML_Pages/sample.html")
+
+# elements = driver.find_elements_by_name("spam")
+# texts = ['Hello', 'World']
+
+# for element, text in zip(elements, texts):
+#     element.send_keys(text)
+#     time.sleep(1)
 
 # driver.save_screenshot('demo.png')
 
@@ -142,25 +228,6 @@ print(Registration_Objects['txt_firstname'])
 #     _xpath = f"//a[text()='{menu}']"
 #     mouse_hover((By.XPATH, _xpath))
 #     time.sleep(1)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # links = driver.find_elements_by_xpath("//ul[@id='header-nav-bar']//a")
