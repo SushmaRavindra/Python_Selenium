@@ -90,7 +90,9 @@ def select_items(locator, *, items):
             print(f'{item} was not found in the multi select listbox')
             continue
 
-
+driver.switch_to.frame()
+driver.switch_to.default_content()
+driver.switch_to.parent_frame()
 # click_element(('xpath', '//a'))
 # enter_text(("name", "fname"), value="Hello")
 # click_element(("xpath", "//a[text()='Register']"))
