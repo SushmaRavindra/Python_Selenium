@@ -7,7 +7,8 @@ import time
 
 
 driver = webdriver.Chrome('./chromedriver')
-driver.get("file:///Users/sandeep/Documents/Python_Selenium/HTML_Pages/Javascript_Alert.html")
+driver.get("http://demowebshop.tricentis.com/")
+
 
 class element_visibility_and_enabled:
     def __init__(self, locator):
@@ -32,10 +33,11 @@ def element_to_be_visible_enabled(locator):
             return False
     return wrapper
 
+MAX_TIMEOUT = 60
 
-def _wait(*, visible=True, enabled=True, max_timeout=10, is_alert=False):
+def _wait(*, visible=True, enabled=True, is_alert=False):
     def decorate(func):
-        w = WebDriverWait(driver, max_timeout)
+        w = WebDriverWait(driver, MAX_TIMEOUT)
         def wrapper(*args, **kwargs):
             locator, = args
             if visible and enabled and not is_alert:
@@ -51,20 +53,20 @@ def _wait(*, visible=True, enabled=True, max_timeout=10, is_alert=False):
     return decorate
 
 
-@_wait(max_timeout=3)
+@_wait()
 def enter_text(locator, *, value):
     locatortype, locatorvalue = locator
     driver.find_element(locatortype, locatorvalue).clear()
     driver.find_element(locatortype, locatorvalue).send_keys(value)
 
 
-@_wait(is_alert=True)
+@_wait()
 def click_element(locator):
     locatortype, locatorvalue = locator
     driver.find_element(locatortype, locatorvalue).click()
 
 
-@_wait(max_timeout=8)
+@_wait()
 def select_item(locator, *, item):
     locatortype, locatorvalue = locator
     lst_box = driver.find_element(locatortype, locatorvalue)
@@ -90,16 +92,12 @@ def select_items(locator, *, items):
             print(f'{item} was not found in the multi select listbox')
             continue
 
-driver.switch_to.frame()
-driver.switch_to.default_content()
-driver.switch_to.parent_frame()
-# click_element(('xpath', '//a'))
-# enter_text(("name", "fname"), value="Hello")
-# click_element(("xpath", "//a[text()='Register']"))
-# click_element(('id', 'gender-male'))
-# enter_text(("name", "FirstName"), value="Sandeep")
-# enter_text(("name", "LastName"), value="Suryaprasad")
-# click_element(("id", "register-button"))
+
+click_element(("xpath", "//a[text()='Register']"))
+click_element(('id', 'gender-male'))
+enter_text(("name", "FirstName"), value="Sandeep")
+enter_text(("name", "LastName"), value="Suryaprasad")
+click_element(("id", "register-button"))
 
 
 
