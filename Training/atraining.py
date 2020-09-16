@@ -7,31 +7,39 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
-import csv
-import tracemalloc
-from collections import defaultdict
+driver = webdriver.Chrome('./chromedriver')
+driver.get("file:///Users/sandeep/Documents/Python_Selenium/HTML_Pages/iframe.html")
 
+driver.switch_to.frame(0)
+driver.find_element_by_xpath("//a[text()='Business']").click()
+driver.switch_to.default_content()
+driver.find_element_by_xpath("//a[text()='Google']").click()
 
-def read_csv():
-    with open('flights.csv') as f:
-        return list(csv.DictReader(f))  # Iterator
-
-
-def read_csv_as_columns():
-    cols = defaultdict(list)
-    with open('flights.csv') as f:
-        rows = csv.reader(f)
-        headers = next(rows)
-        for row in rows:
-            for header, item in zip(headers, row):
-                cols[header].append(item)
-    return cols
-
-
-tracemalloc.start()
-d = read_csv_as_columns()
-print(tracemalloc.get_traced_memory())
-tracemalloc.stop()
+# import csv
+# import tracemalloc
+# from collections import defaultdict
+#
+#
+# def read_csv():
+#     with open('flights.csv') as f:
+#         return list(csv.DictReader(f))  # Iterator
+#
+#
+# def read_csv_as_columns():
+#     cols = defaultdict(list)
+#     with open('flights.csv') as f:
+#         rows = csv.reader(f)
+#         headers = next(rows)
+#         for row in rows:
+#             for header, item in zip(headers, row):
+#                 cols[header].append(item)
+#     return cols
+#
+#
+# tracemalloc.start()
+# d = read_csv_as_columns()
+# print(tracemalloc.get_traced_memory())
+# tracemalloc.stop()
 
 
 
