@@ -3,8 +3,8 @@ import time
 
 
 driver = webdriver.Chrome('./chromedriver')
-driver.get("http://demowebshop.tricentis.com/books")
-time.sleep(2)
+driver.get("https://in.yahoo.com/?p=us")
+time.sleep(5)
 
 # Selecting Checkbox corresponding to different languages
 _languages = ['Python', 'Java', 'JavaScript']
@@ -101,3 +101,8 @@ driver.find_element_by_partial_link_text("Shopping cart").click()
 _book = "Fiction"
 _checkbox = f"(//a[text()='{_book}'])[2]/../..//input[@name='removefromcart']"
 driver.find_element_by_xpath(_checkbox).click()
+
+header_links = driver.find_elements_by_xpath("//ul[@id='header-nav-bar']//a")
+
+for link in header_links:
+    print(link.text)
