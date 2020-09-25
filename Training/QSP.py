@@ -1,85 +1,33 @@
-# Logging Decorator
-def log(func):
-    def wrapper(*args, **kwargs):
-        print('You called ', func.__name__)
-        return func(*args, **kwargs)
-    return wrapper
-
-@log
-def add(a, b):
-    print(a+b)
-
-@log
-def sub(a, b):
-    print(a-b)
-
-@log
-def mul(a, b):
-    print(a*b)
-
-
-# Parameterised Decorator
-def logging(msg='You called :', debug=True):
-    def log(func):
-        def wrapper(*args, **kwargs):
-            if debug:       # debug == True
-                print(msg, func.__name__)
-            return func(*args, **kwargs)
-        return wrapper
-    return log
+# from selenium import webdriver
+#
+# driver = webdriver.Chrome('./chromedriver')
+# driver.get("http://demowebshop.tricentis.com/")
+#
+#
+# def click_element(loctype, locvalue):
+#     driver.find_element(loctype, locvalue).click()
+#
+#
+# def enter_text(loctype, locvalue, value):
+#     driver.find_element(loctype, locvalue).send_keys(value)
+#
+#
+# click_element("xpath", "//a[text()='Register']")
+# enter_text("name", "FirstName", "Hello")
+# click_element("id", "gender-male")
+# click_element("name", "register-button")
 
 
-@logging("hello You called")
-def add(a, b):
-    print(a+b)
+def even_numbers(number):
+    return number % 2 == 0
 
+def palindrome(s1, s2):
+    return s1 == s2[::-1]
 
-@logging("Hey there you called")
-def sub(a, b):
-    print(a-b)
+import unittest
+class Test(unittest.TestCase):
+    def test_even(self):
+        self.assertTrue(even_numbers(10))
 
-
-@logging("Hello", debug=False)
-def mul(a, b):
-    print(a*b)
-
-
-add(1, 2)
-
-mul(2, 3)
-
-import csv
-import tracemalloc
-from time import sleep
-
-
-def _time(func):
-    def wrapper(*args, **kwargs):
-        import time
-        start = time.time()
-        result = func(*args, **kwargs)
-        end = time.time()
-        print(f'Execution Time: {end-start}')
-        return result
-    return wrapper
-
-
-# Decorator that measures Memory
-def _memory(func):
-    def wrapper(*args, **kwargs):
-        tracemalloc.start()
-        result = func(*args, **kwargs)
-        print(tracemalloc.get_traced_memory())
-        tracemalloc.stop()
-        return result
-    return wrapper
-
-
-@_memory
-@_time
-def apple():
-    sleep(1)
-    print("Apple")
-
-
-apple()
+    def test_odd(self):
+        self.assertFalse(even_numbers(9))
