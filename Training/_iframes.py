@@ -1,27 +1,41 @@
 from selenium import webdriver
 from time import sleep
 
-driver = webdriver.Chrome('./chromedriver')
+
 # driver.get("https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Other_embedding_technologies")
-driver.get("https://www.ndtv.com/")
-sleep(10)
+driver = webdriver.Chrome('./chromedriver')
+driver.get("https://in.yahoo.com/")
+driver.find_element_by_xpath("//a[@id='header-signin-link']").click()
 
-element = driver.find_element_by_xpath("(//iframe)[8]")
-driver.switch_to.frame(element)
-headers = driver.find_elements_by_xpath("//table[@class='ind-mp_tbl sortable']//th")
-states = driver.find_elements_by_xpath("//table[@class='ind-mp_tbl sortable']//tr/td[1]")
 
-for header in headers:
-    print(f'{header.text:>15}', end='')
+# firefoxProfile = webdriver.FirefoxProfile()
+# firefoxProfile.set_preference("dom.webnotifications.enabled", False)
+# driver = webdriver.Firefox(options=firefoxProfile)
+# driver.get("https://www.redbus.in/")
 
-print()
+# chromeOptions = webdriver.ChromeOptions()
+# chromeOptions.add_argument("--disable-notifications")
+# driver = webdriver.Chrome('./chromedriver', options=chromeOptions)
+# driver.get("https://www.redbus.in/")
 
-for state in states:
-    _xpath = f"//td[text()='{state.text}']/..//td/p[@class='mid-wrap']"
-    data = driver.find_elements_by_xpath(_xpath)
-    for row in data:
-        print(row.text, end='')
-    print()
+
+
+# element = driver.find_element_by_xpath("(//iframe)[8]")
+# driver.switch_to.frame(element)
+# headers = driver.find_elements_by_xpath("//table[@class='ind-mp_tbl sortable']//th")
+# states = driver.find_elements_by_xpath("//table[@class='ind-mp_tbl sortable']//tr/td[1]")
+#
+# for header in headers:
+#     print(f'{header.text:>15}', end='')
+#
+# print()
+#
+# for state in states:
+#     _xpath = f"//td[text()='{state.text}']/..//td/p[@class='mid-wrap']"
+#     data = driver.find_elements_by_xpath(_xpath)
+#     for row in data:
+#         print(row.text, end='')
+#     print()
 
 
 
