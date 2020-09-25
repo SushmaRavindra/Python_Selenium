@@ -4,24 +4,52 @@ from time import sleep
 driver = webdriver.Chrome('./chromedriver')
 # driver.get("https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Other_embedding_technologies")
 driver.get("https://www.ndtv.com/")
-sleep(5)
+sleep(10)
 
-table = driver.find_element_by_xpath("(//iframe)[9]")
-driver.switch_to.frame(table)
-driver.find_element_by_xpath("//table[@class='ind-mp_tbl sortable']")
-
-# Get Headers
+element = driver.find_element_by_xpath("(//iframe)[8]")
+driver.switch_to.frame(element)
 headers = driver.find_elements_by_xpath("//table[@class='ind-mp_tbl sortable']//th")
+states = driver.find_elements_by_xpath("//table[@class='ind-mp_tbl sortable']//tr/td[1]")
+
 for header in headers:
-    print(f'{header.text:>10}', end='')
+    print(f'{header.text:>15}', end='')
+
 print()
 
-rows = driver.find_elements_by_xpath("//table[@class='ind-mp_tbl sortable']/tbody/tr")
-cols = driver.find_elements_by_xpath("//table[@class='ind-mp_tbl sortable']/tbody//tr[1]//p[@class='mid-wrap']")
+for state in states:
+    _xpath = f"//td[text()='{state.text}']/..//td/p[@class='mid-wrap']"
+    data = driver.find_elements_by_xpath(_xpath)
+    for row in data:
+        print(row.text, end='')
+    print()
 
 
-for col in cols:
-    print(f'{col.text:>10}', end='')
+
+
+
+
+
+
+
+
+
+
+# table = driver.find_element_by_xpath("(//iframe)[9]")
+# driver.switch_to.frame(table)
+# driver.find_element_by_xpath("//table[@class='ind-mp_tbl sortable']")
+
+# Get Headers
+# headers = driver.find_elements_by_xpath("//table[@class='ind-mp_tbl sortable']//th")
+# for header in headers:
+#     print(f'{header.text:>10}', end='')
+# print()
+
+# rows = driver.find_elements_by_xpath("//table[@class='ind-mp_tbl sortable']/tbody/tr")
+# cols = driver.find_elements_by_xpath("//table[@class='ind-mp_tbl sortable']/tbody//tr[1]//p[@class='mid-wrap']")
+
+
+# for col in cols:
+#     print(f'{col.text:>10}', end='')
 
 # driver.find_element_by_xpath("//textarea[@id='code']").send_keys("Hello world")
 
