@@ -2,54 +2,76 @@ from selenium import webdriver
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from time import sleep
+from selenium.webdriver.common.action_chains import ActionChains
+from config import Config
+from library.apple import apple
+import library
+from library import *
+from library.apple.apple import demo, iPhone
 
-driver = webdriver.Chrome('./chromedriver')
-driver.get("file:///Users/sandeep/Documents/Python_Selenium/HTML_Pages/Progressbar.html")
 
 
-def click_element(locator):
-    loctype, locvalue = locator
+i = ip()
+i.wow()
+
+y = you()
+y.videos()
+
+# driver = webdriver.Chrome(Config.CHROME_DRIVER_PATH)
+# driver.get(Config.URL)
+
+# actions = ActionChains(driver)
+# sleep(3)
+# actions.send_keys(Keys.PAGE_DOWN).perform() # "\ue00f"
+
+
+
+# def click_element(locator):
+#     loctype, locvalue = locator
     # Call a Function that Checks if the element is visible and enabled
     # Goahead and write a decorator (Visibility and enabled)
-    driver.find_element(loctype, locvalue).click()
+    # driver.find_element(loctype, locvalue).click()
 
-
-def enter_text(locator, *, value):
-    loctype, locvalue = locator
-    driver.find_element(loctype, locvalue).send_keys(value)
-
-
-def select_item(locator, *, item):
-    loctype, locvalue = locator
-    element = driver.find_element(loctype, locvalue)
-    select = Select(element)
-    if isinstance(item, str):
-        select.select_by_visible_text(item)
-    else:
-        select.select_by_index(item)
-    sleep(1)
-
-
-def select_items(locator, *, items):
-    for item in items:
-        select_item(locator, item=item)
-
-
-def get_all_options(locator):
-    loctype, locvalue = locator
-    element = driver.find_element(loctype, locvalue)
-    select = Select(element)
-    opts = select.options
-    items = [opt.text for opt in opts]
-    return items
-
-
-w = WebDriverWait(driver, timeout=10)
-driver.find_element_by_xpath("//button[text()='Click Me']").click()
+#
+#
+# def enter_text(locator, *, value):
+#     loctype, locvalue = locator
+#     driver.find_element(loctype, locvalue).send_keys(value)
+#
+#
+# def select_item(locator, *, item):
+#     loctype, locvalue = locator
+#     element = driver.find_element(loctype, locvalue)
+#     select = Select(element)
+#     if isinstance(item, str):
+#         select.select_by_visible_text(item)
+#     else:
+#         select.select_by_index(item)
+#     sleep(1)
+#
+#
+# def select_items(locator, *, items):
+#     for item in items:
+#         select_item(locator, item=item)
+#
+#
+# def get_all_options(locator):
+#     loctype, locvalue = locator
+#     element = driver.find_element(loctype, locvalue)
+#     select = Select(element)
+#     opts = select.options
+#     items = [opt.text for opt in opts]
+#     return items
+#
+#
+# w = WebDriverWait(driver, timeout=Config.MAX_TIME_OUT)
+# driver.find_element_by_xpath("//button[text()='Click Me']").click()
 # element = driver.find_element_by_xpath("//div[text()='100%']")
-e = ec.visibility_of_element_located(("xpath", "//div[text()='100%']"))
-w.until(e)
+# e = ec.visibility_of_element_located(("xpath", "//div[text()='100%']"))
+# w.until(e)
 # enter_text(("name", "fname"), value="Hello")
 
 # def select_item(loctype, locvalue, item, by_value=False):

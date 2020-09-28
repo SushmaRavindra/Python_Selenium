@@ -1,11 +1,41 @@
 from selenium import webdriver
 from time import sleep
+from selenium.common.exceptions import StaleElementReferenceException
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 # driver.get("https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Other_embedding_technologies")
 driver = webdriver.Chrome('./chromedriver')
-driver.get("https://in.yahoo.com/")
-driver.find_element_by_xpath("//a[@id='header-signin-link']").click()
+driver.get("https://www.moneycontrol.com/")
+element = driver.find_element_by_xpath("(//iframe)[1]")
+driver.switch_to.frame(element)
+driver.find_element_by_xpath("(//a[text()='Nifty 50'])[1]").click()
+# element = driver.find_element_by_xpath("//a[@id='header-signin-link']")
+# element.click()
+# driver.refresh()
+# element.click()
+# headers = driver.find_elements_by_xpath("(//table[@class='mctable1'])[1]//th")
+# data = driver.find_elements_by_xpath("(//table[@class='mctable1'])[1]//tbody/tr//td")
+# rows = driver.find_elements_by_xpath("(//table[@class='mctable1'])[1]//tr")
+# hds = [header.text for header in headers]
+# row = driver.find_elements_by_xpath("(//a[text()='NIFTY 50'])[2]/../..//td")
+#
+# companies = ['SENSEX', 'NIFTY 50']
+#
+# for company in companies:
+#     _xpath = f"(//a[text()='{company}'])[2]/../..//td"
+#     row = driver.find_elements_by_xpath(_xpath)
+#     for td in row:
+#         print(td.text, end='')
+#     print()
+
+
+
+
+
+
+
+
 
 
 # firefoxProfile = webdriver.FirefoxProfile()

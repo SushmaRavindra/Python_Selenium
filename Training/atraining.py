@@ -7,13 +7,18 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
-driver = webdriver.Chrome('./chromedriver')
+opts = webdriver.ChromeOptions()
+opts.add_argument("--disable-automation")
+
+driver = webdriver.Chrome('./chromedriver', options=opts)
 driver.get("file:///Users/sandeep/Documents/Python_Selenium/HTML_Pages/iframe.html")
 
-driver.switch_to.frame(0)
-driver.find_element_by_xpath("//a[text()='Business']").click()
-driver.switch_to.default_content()
-driver.find_element_by_xpath("//a[text()='Google']").click()
+
+
+# driver.switch_to.frame(0)
+# driver.find_element_by_xpath("//a[text()='Business']").click()
+# driver.switch_to.default_content()
+# driver.find_element_by_xpath("//a[text()='Google']").click()
 
 # import csv
 # import tracemalloc
