@@ -10,7 +10,6 @@ driver = webdriver.Chrome('./chromedriver')
 driver.get("http://demowebshop.tricentis.com/")
 
 opts = webdriver.ChromeOptions()
-opts.add_argument()
 
 
 class element_visibility_and_enabled:
