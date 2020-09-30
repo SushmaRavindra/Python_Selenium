@@ -7,11 +7,14 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
-opts = webdriver.ChromeOptions()
-opts.add_argument("--disable-automation")
 
+opts = webdriver.ChromeOptions()
+
+print(opts.experimental_options)
+
+opts.add_experimental_option("prefs", {"download.default_directory" : "/some/path"})
 driver = webdriver.Chrome('./chromedriver', options=opts)
-driver.get("file:///Users/sandeep/Documents/Python_Selenium/HTML_Pages/iframe.html")
+driver.get("https://www.google.com/")
 
 
 
