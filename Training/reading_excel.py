@@ -1,9 +1,14 @@
 import xlrd
 
 
-wb = xlrd.open_workbook('./sample.xlsx')
-ws = wb.sheet_by_name('Covid')
-rows = ws.get_rows()
+def read_locators(sheetname):
+    workbook = xlrd.open_workbook("Objects.xlsx")
+    worksheet = workbook.sheet_by_name(sheetname)
+    r = worksheet.get_rows()
+    next(r)     # Skip Headers
+    return {item[0].value: (item[1].value, item[2].value) for item in r}
 
-for row in rows:
-    print(row)
+
+objects = read_locators("LoginPage")
+
+print(objects)
