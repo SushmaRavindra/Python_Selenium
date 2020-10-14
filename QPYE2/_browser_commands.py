@@ -1,23 +1,49 @@
 from selenium import webdriver
 from time import sleep
+from selenium.webdriver.support.select import Select
+
 
 driver = webdriver.Chrome('./chromedriver')
+driver.get('http://demowebshop.tricentis.com')
 
-driver.get("http://demowebshop.tricentis.com/")
 
-sleep(3)
+def enter_text(locator, *, value):
+    loctype, locvalue = locator
+    driver.find_element(loctype, locvalue).clear()
+    driver.find_element(loctype, locvalue).send_keys(value)
 
-driver.find_element_by_link_text("Register").click()
 
-driver.find_element_by_id("gender-male").click()
+def click_element(locator):
+    loctype, locvalue = locator
+    driver.find_element(loctype, locvalue).click()
 
-driver.find_element_by_name("FirstName").send_keys('Sandeep')
 
-driver.find_element_by_id('LastName').send_keys('gs')
+def select_item(locator, *, item):
+    ...
 
-driver.find_element_by_name("Email").send_keys('a.a@company.com')
 
-driver.find_element_by_name('register-button').click()
+click_element(("xpath", "//a[text()='Register']"))
+sleep(2)
+
+click_element(("id", "gender-male"))
+sleep(2)
+
+enter_text(("name", "FirstName"), value="Steve")
+sleep(2)
+
+enter_text(("id", "LastName"), value="Jobs")
+sleep(2)
+
+enter_text(("id", "Email"), value="steve.jobs@company.com")
+sleep(2)
+
+enter_text(("name", "Password"), value="password123")
+sleep(2)
+
+enter_text(("name", "ConfirmPassword"), value="password123")
+sleep(2)
+
+click_element(("name", "register-button"))
 
 
 
