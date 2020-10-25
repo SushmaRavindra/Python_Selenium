@@ -1,7 +1,9 @@
 # **Python Selenium**
 
-```
-print("Hello world")
-names = ['apple', 'yahoo', 'google']
-```
+**Table of Contents**
+Brief History of Selenium
+Selenium Architecture
+Browser Actions
+Introduction to HTML
+
 
