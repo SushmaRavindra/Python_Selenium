@@ -1,4 +1,2 @@
 ###### Python Selenium
-
-Browser Actions
-
+<a href="Browser Actions">Browser Actions</a>
