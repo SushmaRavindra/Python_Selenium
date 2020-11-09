@@ -5,77 +5,51 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
 import xlrd
 
-
-def read_locators(pagename):
-    wb = xlrd.open_workbook("Objects.xlsx")
-    ws = wb.sheet_by_name(pagename)
-    rows = ws.get_rows()
-    next(rows)    # Skip headers
-    return {row[0].value: (row[1].value, row[2].value) for row in rows}
+wb = xlrd.open_workbook("TestData.xlsx")
+ws = wb.sheet_by_name("Shopping")
+rows = ws.get_rows()
 
 
-d = read_locators("RegistrationPage")
+for index, row in enumerate(rows):
+    if not row[0].value == "test_login":
+        continue
+    data = ws.row_values(index-1, start_colx=2)
+    headers = ','.join([item for item in data if item])
+    break
 
-print(d)
+rows = ws.get_rows()
+
+final_data = []
+for index, row in enumerate(rows):
+    if row[0].value == "test_login":
+        temp = ws.row_values(index, start_colx=1)
+        data = [item for item in temp if item]
+        if data[0] == "Yes":
+            final_data.append(tuple(data[1:]))
+
+for item in final_data:
+    print(item)
 
 
-# class Objects:
-#     def __init__(self, lname, loctype, locvalue):
-#         self.lname = lname
-#         self.loctype = loctype
-#         self.locvalue = locvalue
+
+
+
+
+
+
+
+
+# def read_locators(pagename):
+#     wb = xlrd.open_workbook("Objects.xlsx")
+#     ws = wb.sheet_by_name(pagename)
+#     rows = ws.get_rows()
+#     next(rows)    # Skip headers
+#     return {row[0].value: (row[1].value, row[2].value) for row in rows}
 #
-# LoginPageObjects = []
-# rows = ws.get_rows()
-# for row in rows:
-#     LoginPageObjects.append(Objects(row[0].value, row[1].value, row[2].value))
 #
-# for item in LoginPageObjects:
-#     print(item.lname, item.loctype, item.locvalue)
-
-
-
-
-# d = {
-#     "txt_email": ("name", "Email"),
-#     "txt_password": ("name", "Password"),
-#     "btn_login": ("xpath", "//input[@value='Log in']")
-#  }
-
-
-portfolio = []
-
-def to_dict(row):
-    return dict(zip(['name', 'shares', 'price'],
-                    [row[0].value, row[1].value, row[2].value]))
-
-for row in rows:
-    portfolio.append(
-        {
-        "name": row[0].value,
-        "shares": row[1].value,
-        "price": row[2].value
-    })
-
-for item in portfolio:
-    if item['price'] > 2000:
-        print(item)
-
-print(sorted(portfolio, key=lambda item: item['shares']))
-
-total = 0.00
-
-for item in portfolio:
-    total += item['price']
-
-print(total)
-
-
-
-
-
-
-
+# d = read_locators("RegistrationPage")
+#
+# print(d)
 
 
 

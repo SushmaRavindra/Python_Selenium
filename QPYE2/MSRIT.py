@@ -1,4 +1,5 @@
 from selenium import webdriver
+import xlrd
 from time import sleep
 from selenium.webdriver.support.select import Select
 from selenium.common.exceptions import NoSuchElementException
@@ -7,19 +8,137 @@ from selenium.webdriver.common.keys import Keys
 
 driver = webdriver.Chrome('./chromedriver')
 
-driver.maximize_window()
-
-driver.get("https://www.naukri.com/")
-
-sleep(5)
+driver.get("file:///Users/sandeep/Documents/Python_Selenium/HTML_Pages/Standard_listbox.html")
 
 
-win_handles = driver.window_handles
+def enter_text(locator, *, value):
+    loctype, locvaue = locator
+    driver.find_element(loctype, locvaue).clear()
+    driver.find_element(loctype, locvaue).send_keys(value)
 
-for handle in win_handles:
-    driver.switch_to.window(handle)
-    if driver.title == "Cognizant":
-        driver.close()
+
+def click_element(locator):
+    loctype, locvalue = locator
+    driver.find_element(loctype, locvalue).click()
+
+
+def select_item(locator, *, item):
+    loctype, locvalue = locator
+    ele = driver.find_element(loctype, locvalue)
+    s = Select(ele)
+    if isinstance(item, str):
+        s.select_by_visible_text(item)
+    else:
+        s.select_by_index(item)
+
+
+def select_items(locator, *, items):
+    for item in items:
+        select_item(locator, item=item)
+
+
+select_item(("id", "standard_cars"), item="Mercedes")
+select_item(("id", "standard_cars"), item=5)
+
+select_items(("id", "multiple_cars"), items=['Audi', 'Mercedes', 'Honda'])
+
+# click_element(("link text", "Register"))
+#
+# sleep(2)
+# click_element(("id", "gender-male"))
+#
+# sleep(2)
+# enter_text(("name", "FirstName"), value="Hello")
+#
+# sleep(2)
+# enter_text(("name", "LastName"), value="World")
+#
+# sleep(2)
+# enter_text(("name", "Email"), value="Hello.World@company.com")
+#
+# sleep(2)
+# enter_text(("name", "Password"), value="admin")
+#
+# sleep(2)
+# enter_text(("name", "ConfirmPassword"), value="admin")
+#
+# sleep(2)
+# click_element(("name", "register-button"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# def read_data(sheetname, tc):
+#     wb = xlrd.open_workbook("TestData.xlsx")
+#     ws = wb.sheet_by_name(sheetname)
+#     rows = ws.get_rows()
+#
+#     for index, row in enumerate(rows):
+#         if not row[0].value == tc:
+#             continue
+#         data = ws.row_values(index-1, start_colx=2)
+#         headers = ','.join([item for item in data if item])
+#         break
+#
+#     final_data = []
+#     rows = ws.get_rows()
+#     for index, row in enumerate(rows):
+#         if row[0].value == tc:
+#             data = ws.row_values(index, start_colx=1)
+#             temp = [item for item in data if item]
+#             if temp[0] == "Yes":
+#                 final_data.append(tuple(temp))
+#     return [headers, final_data]
+#
+# data = read_data("Shopping", "test_shopping")
+#
+# h, d = data
+#
+# print(h)
+# print(d)
+
+# headers = next(rows)
+
+# for index, row in enumerate(rows):
+#     print(index, row[0].value)
+
+# Dictionary Comprehension
+# records = {row[0].value: (row[1].value, row[2].value) for row in rows}
+
+
+
+
+
+
+
+
+
+# driver.get("https://www.naukri.com/")
+#
+# sleep(5)
+#
+#
+# win_handles = driver.window_handles
+#
+# for handle in win_handles:
+#     driver.switch_to.window(handle)
+#     if driver.title == "Cognizant":
+#         driver.close()
 
 # driver.switch_to.window(win_handles[1])
 #
