@@ -11,17 +11,19 @@ rows = ws.get_rows()
 
 
 for index, row in enumerate(rows):
-    if not row[0].value == "test_login":
+    if not row[0].value == "test_shopping":
         continue
     data = ws.row_values(index-1, start_colx=2)
+    print(data)
     headers = ','.join([item for item in data if item])
+    print(headers)
     break
 
 rows = ws.get_rows()
 
 final_data = []
 for index, row in enumerate(rows):
-    if row[0].value == "test_login":
+    if row[0].value == "test_shopping":
         temp = ws.row_values(index, start_colx=1)
         data = [item for item in temp if item]
         if data[0] == "Yes":

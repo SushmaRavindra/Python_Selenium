@@ -1,7 +1,7 @@
 import csv
 import tracemalloc
 
-filename = '/Users/sandeep/Documents/Python_Selenium/Training/covid_data.csv'
+filename = '/Training/covid_data.csv'
 
 
 # Making a Tuple
