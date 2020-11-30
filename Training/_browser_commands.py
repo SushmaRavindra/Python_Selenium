@@ -5,32 +5,48 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
 import xlrd
 
-wb = xlrd.open_workbook("TestData.xlsx")
-ws = wb.sheet_by_name("Shopping")
-rows = ws.get_rows()
+# driver = webdriver.Chrome('./chromedriver')
+# driver = webdriver.Chrome()
+# driver = webdriver.Safari()
+
+import sys
+sys.path.insert(0, "/Users/sandeep/Documents/Zoom")
+
+print(sys.path)
+import lib
+
+print(sys.modules)
+
+lib.greet()
 
 
-for index, row in enumerate(rows):
-    if not row[0].value == "test_shopping":
-        continue
-    data = ws.row_values(index-1, start_colx=2)
-    print(data)
-    headers = ','.join([item for item in data if item])
-    print(headers)
-    break
 
-rows = ws.get_rows()
-
-final_data = []
-for index, row in enumerate(rows):
-    if row[0].value == "test_shopping":
-        temp = ws.row_values(index, start_colx=1)
-        data = [item for item in temp if item]
-        if data[0] == "Yes":
-            final_data.append(tuple(data[1:]))
-
-for item in final_data:
-    print(item)
+# wb = xlrd.open_workbook("TestData.xlsx")
+# ws = wb.sheet_by_name("Shopping")
+# rows = ws.get_rows()
+#
+#
+# for index, row in enumerate(rows):
+#     if not row[0].value == "test_shopping":
+#         continue
+#     data = ws.row_values(index-1, start_colx=2)
+#     print(data)
+#     headers = ','.join([item for item in data if item])
+#     print(headers)
+#     break
+#
+# rows = ws.get_rows()
+#
+# final_data = []
+# for index, row in enumerate(rows):
+#     if row[0].value == "test_shopping":
+#         temp = ws.row_values(index, start_colx=1)
+#         data = [item for item in temp if item]
+#         if data[0] == "Yes":
+#             final_data.append(tuple(data[1:]))
+#
+# for item in final_data:
+#     print(item)
 
 
 
