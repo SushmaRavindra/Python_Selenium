@@ -1,12 +1,4 @@
 from selenium import webdriver
-from time import sleep
-from selenium.webdriver.support.select import Select
-from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions
-
 driver = webdriver.Chrome('./chromedriver')
 
 driver.get("file:///Users/sandeep/Documents/Python_Selenium/HTML_Pages/Progressbar.html")
