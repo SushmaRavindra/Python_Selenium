@@ -1,31 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:remote" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="5a627bce-c3df-4425-9377-29d56139e83b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/HTML_Pages/NewFile1.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Training/files.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HTML_Pages/Loading.html" beforeDir="false" afterPath="$PROJECT_DIR$/HTML_Pages/Loading.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HTML_Pages/Tables.html" beforeDir="false" afterPath="$PROJECT_DIR$/HTML_Pages/Tables.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HTML_Pages/_partial.html" beforeDir="false" afterPath="$PROJECT_DIR$/HTML_Pages/_partial.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HTML_Pages/partial.html" beforeDir="false" afterPath="$PROJECT_DIR$/HTML_Pages/partial.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Training/Data_Analysis.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Training/Data_Analysis_Magic_Methods.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Training/Employees.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Training/MSRIT.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Training/Objects.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Training/Objects.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Training/TestData.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Training/TestData.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Training/_browser_commands.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Training/chromedriver" beforeDir="false" afterPath="$PROJECT_DIR$/Training/chromedriver" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Training/covid_data.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Training/test_python.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Training/testing.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Training/training_weekend.py" beforeDir="false" afterPath="$PROJECT_DIR$/Training/training_weekend.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Brief-History-Of-Selenium.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PyTesting/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PyTesting/conftest.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PyTesting/test_tc01.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PyTesting/test_tc02.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PyTesting/test_tc03.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Training/Objects.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Training/TestData.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Training/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Training/chromedriver" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Training/files.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Training/m_oop.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Training/sample.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Training/training_weekend.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Untitled" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workspace.code-workspace" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -40,6 +68,11 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="training_weekend" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -82,7 +115,22 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="WindowStateProjectService">
+    <state x="368" y="192" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1617786134484">
+      <screen x="0" y="25" width="1280" height="722" />
+    </state>
+    <state x="368" y="192" key="#com.intellij.fileTypes.FileTypeChooser/0.25.1280.722@0.25.1280.722" timestamp="1617786134484" />
     <state width="1899" height="302" key="GridCell.Tab.0.bottom" timestamp="1616415092763">
       <screen x="0" y="25" width="1920" height="1002" />
     </state>
