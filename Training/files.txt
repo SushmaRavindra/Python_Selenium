@@ -1,0 +1,8 @@
+# This is a commented line
+
+# prints hello world to the console
+print('Hello world')
+
+# Looping
+for i in range(5):
+    print("Hello world")
