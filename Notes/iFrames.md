@@ -7,14 +7,14 @@
 * Webdriver can’t perform an action on web element automatically when object or web element are inside the frame.
 * In order to work with frame web elements we should pass driver control to the frame before performing an action.
 * There are three ways we can pass driver control to frame.
-     * Int 
+     * Int (0, 1, 2)
      * String (ID/Name)
      * Web Element (Address)
 
 * There are three ways we can pass driver control to frame.
 ```python
 driver.switch_to.frame('frame_name')
-driver.switch_to.frame(1)
+driver.switch_to.frame(0) # frameid starts from index zero
 driver.switch_to.frame(driver.find_elements_by_tag_name("iframe")[0])
 ```
 * In order to give the control back to the main page, i.e. Change the control from frame or to exit from the frame we use the following methods.
