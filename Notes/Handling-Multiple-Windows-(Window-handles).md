@@ -5,7 +5,7 @@
 * Notification pop up
 * File upload pop up
 * File download pop up
-* Window pop up
+* Authentication pop up
 * Calendar pop up
 
 ### Child-browser pop up or HTML pop up
@@ -176,7 +176,96 @@ driver.get("file:///Users/sandeep/Documents/Python_Selenium/HTML_Pages/Javascrip
 
 print(driver.switch_to.alert.text)
 ```
+### Exercise: 10
+**Write a script to open demowebshop, click on Search button without entering any search item and get verify proper error message is being displayed or not**
+```python
+from selenium import webdriver
+
+driver = webdriver.Chrome('./chromedriver')
+driver.get("http://demowebshop.tricentis.com/")
+sleep(4)
+driver.find_element_by_xpath("//input[@value='Search']").click()
+sleep(2)
+actual_text = driver.switch_to.alert.text
+sleep(1)
+driver.switch_to.alert.accept()
+
+if actual_text == 'Please enter some search keyword':
+    print('PASS')
+else:
+    print('FAIL')
+```
 **Note: If the alert popup is not present, NoAlertPresentException is raised by webdriver** 
+### File Upload popup
+**Program to upload a file in demo webpage.**
+```python
+from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome('./chromedriver')
+driver.get("file:///Users/sandeep/Desktop/sandeep/selenium_training/HTML_Pages/Fileupload.html")
+sleep(2)
+driver.find_element_by_xpath("//input[@id='myFile']").send_keys("/Users/sandeep/Desktop/testing.doc")
+```
+**Program to upload a resume in naukri.**
+```python
+from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome('./chromedriver')
+driver.get("https://www.naukri.com/")
+sleep(5)
+driver.find_element_by_xpath("//input[@id='file_upload']").send_keys("/Users/sandeep/Desktop/testing.doc")
+```
+**Program to upload a file in herokuapp.com.**
+```python
+from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome('./chromedriver')
+driver.get("http://the-internet.herokuapp.com/upload")
+sleep(4)
+driver.find_element_by_xpath("//input[@id='file-upload']").send_keys("/Users/sandeep/Desktop/testing.doc")
+```
+
+### File Download popup
+* File download popup can be handled either by using 3rd party library called PyAutoIT or programatically (through ChromeOptions and FireFoxProfile class).
+
+**Program to download Desktop version of watsapp in chrome browser.**
+```python
+from selenium import webdriver
+from time import sleep
+
+opts = webdriver.ChromeOptions()
+opts.add_experimental_option("prefs",{"download.default_directory": r"/users/sandeep/documents",
+                                    "safebrowsing.enabled": True}
+                             )
+driver = webdriver.Chrome('./chromedriver', options=opts)
+driver.get("https://www.whatsapp.com/download/")
+sleep(5)
+driver.find_element_by_xpath("//a[text()='Download for Mac OS X']").click()
+```
+
+**Program to download Desktop version of watsapp in Firefox browser.**
+```python
+from selenium import webdriver
+from time import sleep
+
+profile = webdriver.FirefoxProfile()
+profile.set_preference("browser.download.folderList", 2)
+profile.set_preference("browser.download.dir", '/users/sandeep/documents')
+profile.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/octet-stream")
+driver = webdriver.Firefox(profile)
+driver.get("https://www.whatsapp.com/download/")
+sleep(5)
+driver.find_element_by_xpath("//a[text()='Download for Mac OS X']").click()
+```
+### Authentication popup
+```python
+from selenium import webdriver
+from time import sleep
+driver.get("https://admin:admin@the-internet.herokuapp.com/basic_auth")
+```
 
 ### Notification Popup
 * Push Notifications are mainly used to deliver information instantly on the user's browser like Latest news alert, New blog post, Sale event, Flight notifications, Score update for sports. E-commerce websites have been the early adopter of this tool. 
@@ -236,36 +325,4 @@ a = ActionChains(driver)
 a.move_to_element(kids).perform()
 sleep(5)
 driver.find_element_by_xpath("(//a[text()='T-Shirts'])[1]").click()
-```
-### File Download popup
-* File download popup can be handled either by using 3rd party library called PyAutoIT or programatically (through ChromeOptions and FireFoxProfile class).
-
-**Program to download Desktop version of watsapp in chrome browser.**
-```python
-from selenium import webdriver
-from time import sleep
-
-opts = webdriver.ChromeOptions()
-opts.add_experimental_option("prefs",{"download.default_directory": r"/users/sandeep/documents",
-                                    "safebrowsing.enabled": True}
-                             )
-driver = webdriver.Chrome('./chromedriver', options=opts)
-driver.get("https://www.whatsapp.com/download/")
-sleep(5)
-driver.find_element_by_xpath("//a[text()='Download for Mac OS X']").click()
-```
-
-**Program to download Desktop version of watsapp in Firefox browser.**
-```python
-from selenium import webdriver
-from time import sleep
-
-profile = webdriver.FirefoxProfile()
-profile.set_preference("browser.download.folderList", 2)
-profile.set_preference("browser.download.dir", '/users/sandeep/documents')
-profile.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/octet-stream")
-driver = webdriver.Firefox(profile)
-driver.get("https://www.whatsapp.com/download/")
-sleep(5)
-driver.find_element_by_xpath("//a[text()='Download for Mac OS X']").click()
 ```
