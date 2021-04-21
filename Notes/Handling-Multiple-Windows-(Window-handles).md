@@ -207,7 +207,7 @@ driver.get("file:///Users/sandeep/Desktop/sandeep/selenium_training/HTML_Pages/F
 sleep(2)
 driver.find_element_by_xpath("//input[@id='myFile']").send_keys("/Users/sandeep/Desktop/testing.doc")
 ```
-**Program to upload a resume in naukri.**
+**Program to upload a resume in naukri.com**
 ```python
 from selenium import webdriver
 from time import sleep
@@ -216,6 +216,17 @@ driver = webdriver.Chrome('./chromedriver')
 driver.get("https://www.naukri.com/")
 sleep(5)
 driver.find_element_by_xpath("//input[@id='file_upload']").send_keys("/Users/sandeep/Desktop/testing.doc")
+```
+**Program to upload a resume in monster.com**
+```python
+from selenium import webdriver
+from time import sleep
+
+driver.get('https://www.monsterindia.com/')
+sleep(5)
+driver.find_element_by_xpath("//span[text()='Upload Resume']").click()
+sleep(2)
+driver.find_element_by_xpath("//input[@id='file-upload']").send_keys("/users/sandeep/desktop/testing.doc")
 ```
 **Program to upload a file in herokuapp.com.**
 ```python
