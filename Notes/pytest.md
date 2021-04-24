@@ -164,10 +164,10 @@ from pytest import mark
 
 @mark.usefixtures("init")
 class TestArithmetic:
-    def test_valid_int(self, init):
+    def test_valid_int(self):
         assert int_add(1, 2) == 3
 
-    def test_invalid_data(self, init):
+    def test_invalid_data(self):
         with raises(TypeError):
             int_add(1, 1.2)
 ```
