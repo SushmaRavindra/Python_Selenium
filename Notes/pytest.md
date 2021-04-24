@@ -59,14 +59,12 @@ def test_invalid_data(1, 1.2):
 **Moving all the test methods into class definition**
 ```python
 class TestArithmetic:
-    @mark.parametrize("a, b, expected", valid_data)
-    def test_valid_int(self, a, b, expected):
-        assert int_add(a, b) == expected
+    def test_valid_int(self):
+        assert int_add(1, 2) == 3
 
-    @mark.parametrize("a, b, expected", invalid_data)
-    def test_invalid_data(self, a, b, expected):
-        with raises(expected):
-            int_add(a, b)
+    def test_invalid_data(self):
+        with raises(TypeError):
+            int_add(1, 1.2)
 ```
 **Multiple ways of executing test's**
 * Discovers all the python modules that starts from test_* or *_test in the current working directory and executes all the test methods inside the module.
