@@ -1,18 +1,18 @@
-### What is Unit Testing
+**What is Unit Testing**
 * A unit test is a way of testing a unit - the smallest piece of code that can be logically isolated in a system. In most programming languages, that is a function, a subroutine, a method or property.
 
-### What Do Unit Tests Look Like?
+**What Do Unit Tests Look Like?**
 * A unit can be almost anything you want it to be -- a line of code, a method, or a class. Generally though, smaller is better.
 * Smaller tests give you a much more granular view of how your code is performing.
 * There is also the practical aspect that when you test very small units, your tests can be run fast; like a thousand tests in a second fast.
 
-### Who Should Create The Unit Tests?
+**Who Should Create The Unit Tests?**
 * The programmer that wrote the code will likely know how to access the parts that can be tested easily and how to mock objects that can't be accessed otherwise.
 
-### What is pytest
+**What is pytest**
 * The pytest framework makes it easy to write small tests using Python.
 
-### Advantages of pytest
+**Advantages of pytest**
 * Very easy to start with because of its simple and easy syntax.
 * Can run tests in parallel.
 * Can run a specific test or a subset of tests.
@@ -20,17 +20,17 @@
 * Grouping of test methods.
 * Generates report.
 
-### Install pytest
+**Install pytest**
 ```python
 pip3 install pytest
 ```
 
-### Check the version of pytest
+**Check the version of pytest**
 ```python
 pytest --version
 ```
 
-### Conventions for Python test discovery
+**Conventions for Python test discovery**
 **pytest implements the following standard test discovery:**
 
 * The module name should either start with test_* or *_test.
@@ -45,7 +45,6 @@ def int_add(a, b):
         raise TypeError('Only ints allowed')
     return a + b
 ```
-
 **Writing unittests to test the above function**
 ```python
 from pytest import raises
