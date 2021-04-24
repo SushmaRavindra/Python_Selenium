@@ -304,13 +304,24 @@ FAILED test_utility.py::TestLogin::test_login - assert False
 ```
 * In the above test, test_logout method has skipped because test_login method has failed.
 ### pytest fixtures
-* Software test fixtures initialise's test functions.
+* Pytest fixture is a callable (normally a function or a generator) decorated with inbuilt pytest decorator @fixture
+* Fixtures are used for dependency injection or to pass the data to the test functions
 * Fixtures are accessed by test functions through arguments.
 * Fixtures are used to run a piece of code repeatedly before and/or after every test method/class/module/session based on the defined scope.
 
+### Simple fixture that returns a string "hello world".
+```python
+@pytest.fixture
+def greet():
+    return "hello world"
+ 
+def test_greet(greet):
+    assert "hello world" == greet
+```
+
 ### Sample pytest fixture for launching browser and closing browser.
 ```python
-@pytest.fixture()
+@pytest.fixture
 def init():
     print('Launching Browser and Navigating to a URL')
     yield
