@@ -56,23 +56,6 @@ def test_invalid_data(1, 1.2):
     with raises(TypeError):
         int_add(a, b)
 ```
-**Parameterizing the tests**
-```python
-from pytest import mark
-from pytest import raises
-
-valid_data = [(1, 2, 3), (10, 20, 30)]
-invalid_data = [(1.2, 1), (1, 1.2), ('1', '2')]
-
-@mark.parametrize("a, b, expected", valid_data)
-def test_valid_int(a, b, expected):
-    assert int_add(a, b) == expected
-
-@mark.parametrize("a, b, expected", invalid_data)
-def test_invalid_data(a, b, expected):
-    with raises(TypeError):
-        int_add(a, b)
-```
 **Moving all the test methods into class definition**
 ```python
 class TestArithmetic:
@@ -209,6 +192,24 @@ class TestArithmetic:
 ```
 * Executing only those test's which are marked as smoke. **pytest test_utility.py -vs -m smoke**
 * Executing only those test's which are marked as regression. **pytest test_utility.py -vs -m regression**
+
+**Parameterizing the tests**
+```python
+from pytest import mark
+from pytest import raises
+
+valid_data = [(1, 2, 3), (10, 20, 30)]
+invalid_data = [(1.2, 1), (1, 1.2), ('1', '2')]
+
+@mark.parametrize("a, b, expected", valid_data)
+def test_valid_int(a, b, expected):
+    assert int_add(a, b) == expected
+
+@mark.parametrize("a, b, expected", invalid_data)
+def test_invalid_data(a, b, expected):
+    with raises(TypeError):
+        int_add(a, b)
+```
 
 **Managing Test Dependency**
 * In order make one test method to depend on the test result of another test method, we need to install a plugin **pytest-dependency**
