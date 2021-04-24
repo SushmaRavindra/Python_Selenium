@@ -41,40 +41,52 @@ pytest --version
 
 ### library/utility.py module
 ```python
-def is_even(number):
-    if isinstance(number, float):
-        raise TypeError('Float is not allowed')
-    if not isinstance(number, int):
-        raise TypeError('Number Must be an Integer')
-    return number % 2 == 0
-
-
-def is_palindrome(string):
-    return string == string[::-1]
+def int_add(a, b):
+    if not isinstance(a, int) or not isinstance(b, int):
+        raise TypeError('Only ints allowed')
+    return a + b
 ```
 
-### test_library/test_utility.py module
+**Writing unittests to test the above function**
 ```python
-class TestUtility:
-    def test_even(self):
-        assert is_even(10) == True
+from pytest import raises
 
-    def test_odd(self):
-        assert is_even(9) == False
+def test_valid_int():
+    assert int_add(1, 2) == 3
 
-    def test_invalid_number(self):
-        with pytest.raises(TypeError):
-            is_even('10')
+def test_invalid_data(1, 1.2):
+    with raises(TypeError):
+        int_add(a, b)
+```
 
-    def test_float(self):
-        with pytest.raises(TypeError):
-            is_even(1.2)
+**Parameterizing the tests**
+```python
+from pytest import mark
+from pytest import raises
 
-    def test_palindrome(self):
-        assert is_palindrome('racecar') == True
+valid_data = [(1, 2, 3), (10, 20, 30)]
+invalid_data = [(1.2, 1), (1, 1.2), ('1', '2')]
 
-    def test_not_palindrome(self):
-        assert is_palindrome('hello') == False
+@mark.parametrize("a, b, expected", valid_data)
+def test_valid_int(a, b, expected):
+    assert int_add(a, b) == expected
+
+@mark.parametrize("a, b, expected", invalid_data)
+def test_invalid_data(a, b, expected):
+    with raises(TypeError):
+        int_add(a, b)
+```
+Moving all the test methods into class definition
+```python
+class TestArithmetic:
+    @mark.parametrize("a, b, expected", valid_data)
+    def test_valid_int(self, a, b, expected):
+        assert int_add(a, b) == expected
+
+    @mark.parametrize("a, b, expected", invalid_data)
+    def test_invalid_data(self, a, b, expected):
+        with raises(expected):
+            int_add(a, b)
 ```
 ### Multiple ways of executing test's
 * Discovers all the python modules that starts from test_* or *_test in the current working directory and executes all the test methods inside the module.
@@ -96,12 +108,159 @@ pytest test_library
 
 * Executes the test method test_even present inside the class TestUtility (Executing a particular test method inside the class)
 ```python
-pytest test_library/test_utility.py::TestUtility::test_even
+pytest test_library/test_utility.py::TestUtility::test_valid_int
 ```
 * Executes the test method test_spam present inside the module test_spam.py (Which is inside package test_spam)
 ```python
 pytest test_spam/test_spam.py::test_spam
 ```
+### pytest fixtures
+* Pytest fixture is a callable (normally a function or a generator) decorated with inbuilt pytest decorator @fixture
+* Fixtures are used for dependency injection or to pass the data to the test functions
+* Fixtures are accessed by test functions through arguments.
+* Fixtures are used to run a piece of code repeatedly before and/or after every test method/class/module/session based on the defined scope.
+
+### Simple fixture that returns a string "hello world".
+```python
+from pytest import fixture
+@fixture
+def greet():
+    return "hello world"
+ 
+def test_greet(greet):
+    assert "hello world" == greet
+```
+
+### Sample pytest fixture for launching browser and closing browser.
+```python
+from pytest import fixture
+@fixture
+def init():
+    print('Launching Browser and Navigating to a URL')
+    yield
+    print('Closing Browser')
+``` 
+* The code before yield statement run's once before every test method and the code after yield statement run's once after the completion of every test method. 
+
+### Passing fixture to each test method.
+```python
+class TestUtility:
+    def test_even(self, init):
+        assert is_even(10) == True
+
+    def test_odd(self, init):
+        assert is_even(9) == False
+
+    def test_invalid_number(self, init):
+        with pytest.raises(TypeError):
+            is_even('10')
+
+    def test_float(self, init):
+        with pytest.raises(TypeError):
+            is_even(1.2)
+
+    def test_palindrome(self, init):
+        assert is_palindrome('racecar') == True
+
+    def test_not_palindrome(self, init):
+        assert is_palindrome('hello') == False
+```
+**Executing the above pytest would produce the below output**
+```python
+sandeep@Sandeeps-MacBook-Pro test_library % pytest -vs test_utility.py
+=========================================================== test session starts ===========================================================
+platform darwin -- Python 3.8.3, pytest-6.1.0, py-1.9.0, pluggy-0.13.1 -- /Library/Frameworks/Python.framework/Versions/3.8/bin/python3.8
+cachedir: .pytest_cache
+metadata: {'Python': '3.8.3', 'Platform': 'macOS-10.15.6-x86_64-i386-64bit', 'Packages': {'pytest': '6.1.0', 'py': '1.9.0', 'pluggy': '0.13.1'}, 'Plugins': {'metadata': '1.10.0', 'html': '2.1.1', 'ordering': '0.6'}}
+rootdir: /Users/sandeep/Documents/Pytesting/test_library
+plugins: metadata-1.10.0, html-2.1.1, ordering-0.6
+collected 6 items                                                                                                                         
+
+test_utility.py::TestLibrary::test_even Launching Browser and Navigating to a URL
+PASSEDClosing Browser
+
+test_utility.py::TestLibrary::test_odd Launching Browser and Navigating to a URL
+PASSEDClosing Browser
+
+test_utility.py::TestLibrary::test_invalid_number Launching Browser and Navigating to a URL
+PASSEDClosing Browser
+
+test_utility.py::TestLibrary::test_float Launching Browser and Navigating to a URL
+PASSEDClosing Browser
+
+test_utility.py::TestLibrary::test_palindrome Launching Browser and Navigating to a URL
+PASSEDClosing Browser
+
+test_utility.py::TestLibrary::test_not_palindrome Launching Browser and Navigating to a URL
+PASSEDClosing Browser
+============================================================ 6 passed in 0.02s============================================================
+```
+### Passing fixture to all the test method's at once.
+```python
+@pytest.mark.usefixtures("init")
+class TestUtility:
+    def test_even(self):
+        assert is_even(10) == True
+
+    def test_odd(self):
+        assert is_even(9) == False
+
+    def test_invalid_number(self):
+        with pytest.raises(TypeError):
+            is_even('10')
+
+    def test_float(self):
+        with pytest.raises(TypeError):
+            is_even(1.2)
+
+    def test_palindrome(self):
+        assert is_palindrome('racecar') == True
+
+    def test_not_palindrome(self):
+        assert is_palindrome('hello') == False
+```
+### Passing fixture to all the test method's with using pytest.mark.usefixtures().
+* When keyword argument "autouse" is set to boolean True, the fixture is automatically applied to all the test methods and Test Classes
+```python
+@pytest.fixture(autouse=True)
+def init():
+    print('Launching Browser and Navigating to a URL')
+    yield
+    print('Closing Browser')
+```
+### Scoping of test fixtures.
+**The statements before yield keyword runs once before every class and statements after yield keyword runs once after every class**
+```python
+@pytest.fixture(scope="class")
+def init():
+    print('Launching Browser and Navigating to a URL')
+    yield
+    print('Closing Browser')
+``` 
+**The statements before yield keyword runs once before every module and statements after yield keyword runs once after every module**
+```python
+@pytest.fixture(scope="module")
+def init():
+    print('Launching Browser and Navigating to a URL')
+    yield
+    print('Closing Browser')
+``` 
+**The statements before yield keyword runs once before every session and statements after yield keyword runs once after every session**
+```python
+@pytest.fixture(scope="session")
+def init():
+    print('Launching Browser and Navigating to a URL')
+    yield
+    print('Closing Browser')
+``` 
+**If no scope is mentioned in the fixture, the default scope is at method/function level. The statements before yield keyword runs once before every test method and statements after yield keyword runs once after test method**
+```python
+@pytest.fixture()
+def init():
+    print('Launching Browser and Navigating to a URL')
+    yield
+    print('Closing Browser')
+``` 
 ### Grouping test's
 
 ```python
@@ -303,151 +462,6 @@ FAILED test_utility.py::TestLogin::test_login - assert False
 ========================= 1 failed, 1 skipped in 0.08s =========================
 ```
 * In the above test, test_logout method has skipped because test_login method has failed.
-### pytest fixtures
-* Pytest fixture is a callable (normally a function or a generator) decorated with inbuilt pytest decorator @fixture
-* Fixtures are used for dependency injection or to pass the data to the test functions
-* Fixtures are accessed by test functions through arguments.
-* Fixtures are used to run a piece of code repeatedly before and/or after every test method/class/module/session based on the defined scope.
-
-### Simple fixture that returns a string "hello world".
-```python
-@pytest.fixture
-def greet():
-    return "hello world"
- 
-def test_greet(greet):
-    assert "hello world" == greet
-```
-
-### Sample pytest fixture for launching browser and closing browser.
-```python
-@pytest.fixture
-def init():
-    print('Launching Browser and Navigating to a URL')
-    yield
-    print('Closing Browser')
-``` 
-* The code before yield statement run's once before every test method and the code after yield statement run's once after the completion of every test method. 
-
-### Passing fixture to each test method.
-```python
-class TestUtility:
-    def test_even(self, init):
-        assert is_even(10) == True
-
-    def test_odd(self, init):
-        assert is_even(9) == False
-
-    def test_invalid_number(self, init):
-        with pytest.raises(TypeError):
-            is_even('10')
-
-    def test_float(self, init):
-        with pytest.raises(TypeError):
-            is_even(1.2)
-
-    def test_palindrome(self, init):
-        assert is_palindrome('racecar') == True
-
-    def test_not_palindrome(self, init):
-        assert is_palindrome('hello') == False
-```
-**Executing the above pytest would produce the below output**
-```python
-sandeep@Sandeeps-MacBook-Pro test_library % pytest -vs test_utility.py
-=========================================================== test session starts ===========================================================
-platform darwin -- Python 3.8.3, pytest-6.1.0, py-1.9.0, pluggy-0.13.1 -- /Library/Frameworks/Python.framework/Versions/3.8/bin/python3.8
-cachedir: .pytest_cache
-metadata: {'Python': '3.8.3', 'Platform': 'macOS-10.15.6-x86_64-i386-64bit', 'Packages': {'pytest': '6.1.0', 'py': '1.9.0', 'pluggy': '0.13.1'}, 'Plugins': {'metadata': '1.10.0', 'html': '2.1.1', 'ordering': '0.6'}}
-rootdir: /Users/sandeep/Documents/Pytesting/test_library
-plugins: metadata-1.10.0, html-2.1.1, ordering-0.6
-collected 6 items                                                                                                                         
-
-test_utility.py::TestLibrary::test_even Launching Browser and Navigating to a URL
-PASSEDClosing Browser
-
-test_utility.py::TestLibrary::test_odd Launching Browser and Navigating to a URL
-PASSEDClosing Browser
-
-test_utility.py::TestLibrary::test_invalid_number Launching Browser and Navigating to a URL
-PASSEDClosing Browser
-
-test_utility.py::TestLibrary::test_float Launching Browser and Navigating to a URL
-PASSEDClosing Browser
-
-test_utility.py::TestLibrary::test_palindrome Launching Browser and Navigating to a URL
-PASSEDClosing Browser
-
-test_utility.py::TestLibrary::test_not_palindrome Launching Browser and Navigating to a URL
-PASSEDClosing Browser
-============================================================ 6 passed in 0.02s============================================================
-```
-### Passing fixture to all the test method's at once.
-```python
-@pytest.mark.usefixtures("init")
-class TestUtility:
-    def test_even(self):
-        assert is_even(10) == True
-
-    def test_odd(self):
-        assert is_even(9) == False
-
-    def test_invalid_number(self):
-        with pytest.raises(TypeError):
-            is_even('10')
-
-    def test_float(self):
-        with pytest.raises(TypeError):
-            is_even(1.2)
-
-    def test_palindrome(self):
-        assert is_palindrome('racecar') == True
-
-    def test_not_palindrome(self):
-        assert is_palindrome('hello') == False
-```
-### Passing fixture to all the test method's with using pytest.mark.usefixtures().
-* When keyword argument "autouse" is set to boolean True, the fixture is automatically applied to all the test methods and Test Classes
-```python
-@pytest.fixture(autouse=True)
-def init():
-    print('Launching Browser and Navigating to a URL')
-    yield
-    print('Closing Browser')
-```
-### Scoping of test fixtures.
-**The statements before yield keyword runs once before every class and statements after yield keyword runs once after every class**
-```python
-@pytest.fixture(scope="class")
-def init():
-    print('Launching Browser and Navigating to a URL')
-    yield
-    print('Closing Browser')
-``` 
-**The statements before yield keyword runs once before every module and statements after yield keyword runs once after every module**
-```python
-@pytest.fixture(scope="module")
-def init():
-    print('Launching Browser and Navigating to a URL')
-    yield
-    print('Closing Browser')
-``` 
-**The statements before yield keyword runs once before every session and statements after yield keyword runs once after every session**
-```python
-@pytest.fixture(scope="session")
-def init():
-    print('Launching Browser and Navigating to a URL')
-    yield
-    print('Closing Browser')
-``` 
-**If no scope is mentioned in the fixture, the default scope is at method/function level. The statements before yield keyword runs once before every test method and statements after yield keyword runs once after test method**
-```python
-@pytest.fixture()
-def init():
-    print('Launching Browser and Navigating to a URL')
-    yield
-    print('Closing Browser')
-``` 
 
 ### Running only failed tests
 ```python
