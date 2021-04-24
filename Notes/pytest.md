@@ -213,6 +213,41 @@ def init():
     yield
     print('Closing Browser')
 ``` 
+
+**Scopes**
+```python
+@fixture(scope="session")
+def fix_session():
+    print('\n running setup SESSION scope')
+    yield 
+    print('\n running teardown SESSION scope')
+
+@fixture(scope="module")
+def fix_mod(fix_session):
+    print('\n running setup MODULE scope')
+    yield
+    print('\n running teardown MODULE scope')
+
+@fixture(scope="class")
+def fix_class(fix_mod):
+    print('\n running setup CLASS scope')
+    yield 
+    print('\n running teardown CLASS scope')
+
+@fixture()
+def fix_func(fix_class):
+    print('\n running setup FUNCTION scope')
+    yield 
+    print('\n running teardown FUNCTOIN scope')
+
+class TestArithmetic:
+    def test_valid_int(self, fix_func):
+        assert int_add(1, 2) == 3
+
+    def test_invalid_data(self, fix_fun):
+        with raises(TypeError):
+            int_add(1, 1.2)
+```
 **Grouping test's**
 
 ```python
