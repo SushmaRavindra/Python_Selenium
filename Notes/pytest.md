@@ -57,7 +57,6 @@ def test_invalid_data(1, 1.2):
     with raises(TypeError):
         int_add(a, b)
 ```
-
 **Parameterizing the tests**
 ```python
 from pytest import mark
@@ -158,63 +157,11 @@ class TestArithmetic:
         with raises(TypeError):
             int_add(1, 1.2)
 ```
-**Passing fixture to all the test method's at once.**
-```python
-from pytest import mark
-
-@mark.usefixtures("init")
-class TestArithmetic:
-    def test_valid_int(self):
-        assert int_add(1, 2) == 3
-
-    def test_invalid_data(self):
-        with raises(TypeError):
-            int_add(1, 1.2)
-```
-**Passing fixture to all the test method's with using pytest.mark.usefixtures()**
-* When keyword argument "autouse" is set to boolean True, the fixture is automatically applied to all the test methods and Test Classes
-```python
-@pytest.fixture(autouse=True)
-def init():
-    print('Launching Browser and Navigating to a URL')
-    yield
-    print('Closing Browser')
-```
 **Scoping of test fixtures**
-**The fixture runs once per class**
-```python
-@pytest.fixture(scope="class")
-def init():
-    print('Launching Browser and Navigating to a URL')
-    yield
-    print('Closing Browser')
-``` 
-**The fixture runs once per module**
-```python
-@pytest.fixture(scope="module")
-def init():
-    print('Launching Browser and Navigating to a URL')
-    yield
-    print('Closing Browser')
-``` 
-**The fixture runs once per run**
-```python
-@pytest.fixture(scope="session")
-def init():
-    print('Launching Browser and Navigating to a URL')
-    yield
-    print('Closing Browser')
-``` 
-**If no scope is mentioned in the fixture, the default scope is at method/function level. The statements before yield keyword runs once before every test method and statements after yield keyword runs once after test method**
-```python
-@pytest.fixture
-def init():
-    print('Launching Browser and Navigating to a URL')
-    yield
-    print('Closing Browser')
-``` 
-
-**Scopes**
+* "function" Called once per test function (default)
+* "module" Called once per module
+* "class" Called once per class
+* "session" Called once per-run
 ```python
 @fixture(scope="session")
 def fix_session():
