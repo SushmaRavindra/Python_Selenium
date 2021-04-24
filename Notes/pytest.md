@@ -184,7 +184,7 @@ def fix_class(fix_mod):
 def fix_func(fix_class):
     print('\n running setup FUNCTION scope')
     yield 
-    print('\n running teardown FUNCTOIN scope')
+    print('\n running teardown FUNCTION scope')
 
 class TestArithmetic:
     def test_valid_int(self, fix_func):
@@ -261,9 +261,6 @@ def init():
 ```
 
 **Passing driver instance to test method from contest.py**
-* Fixture functions can accept the _**request**_ object.
-* _**request**_ object holds the information of the test method/class/module calling the fixture.
-
 ```python
 @pytest.fixture
 def init(request):
