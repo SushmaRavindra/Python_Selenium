@@ -52,9 +52,9 @@ from pytest import raises
 def test_valid_int():
     assert int_add(1, 2) == 3
 
-def test_invalid_data(1, 1.2):
+def test_invalid_data():
     with raises(TypeError):
-        int_add(a, b)
+        int_add(1, 1.2)
 ```
 **Moving all the test methods into class definition**
 ```python
