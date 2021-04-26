@@ -185,7 +185,7 @@ from pytest import mark
 Class TestLogin:
    data = [("steve.jobs@compay.com", "Password123"), ("bill.gates@compay.com", "Password123")]
    @mark.parametrize("email, password", data)
-    def test_login_steve(self, _driver):
+    def test_login_steve(self, email, password, _driver):
        _driver.find_element_by_xpath("//a[text()='Log in']").click()
        _driver.find_element_by_id("Email").send_keys(email)
        _driver.find_element_by_id("Password").send_keys(password)
