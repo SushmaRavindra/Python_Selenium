@@ -116,7 +116,7 @@ from pytest import mark
 Class TestLogin:
    data = [("steve.jobs@compay.com", "Password123"), ("bill.gates@compay.com", "Password123")]
    @mark.parametrize("email, password", data)
-    def test_login_steve(self, email, password, data):
+    def test_login(self, email, password, data):
        driver = webdriver.Chrome('./chromedriver')
        driver.get("http://demowebshop.tricentis.com/")
        driver.find_element_by_xpath("//a[text()='Log in']").click()
