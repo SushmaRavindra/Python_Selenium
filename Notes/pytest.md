@@ -122,6 +122,7 @@ Class TestLogin:
        driver.find_element_by_xpath("//a[text()='Log in']").click()
        driver.find_element_by_id("Email").send_keys(email)
        driver.find_element_by_id("Password").send_keys(password)
+       driver.quit()
 ```
 **pytest fixtures**
 * Pytest fixture is a callable (normally a function or a generator) decorated with inbuilt pytest decorator @fixture
