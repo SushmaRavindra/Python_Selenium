@@ -92,6 +92,23 @@ pytest test_library/test_utility.py::TestUtility::test_valid_int
 ```python
 pytest test_spam/test_spam.py::test_spam
 ```
+**Parameterizing the tests**
+```python
+from pytest import mark
+from pytest import raises
+
+valid_data = [(1, 2, 3), (10, 20, 30)]
+invalid_data = [(1.2, 1), (1, 1.2), ('1', '2')]
+
+@mark.parametrize("a, b, expected", valid_data)
+def test_valid_int(a, b, expected):
+    assert int_add(a, b) == expected
+
+@mark.parametrize("a, b, expected", invalid_data)
+def test_invalid_data(a, b, expected):
+    with raises(TypeError):
+        int_add(a, b)
+```
 **pytest fixtures**
 * Pytest fixture is a callable (normally a function or a generator) decorated with inbuilt pytest decorator @fixture
 * Fixtures are used for dependency injection or to pass the data to the test functions
@@ -115,27 +132,53 @@ def greet():
 def test_greet(greet):
     assert "hello world" == greet
 ```
-
-**Sample pytest fixture for launching browser and closing browser**
+**setup and teardown method using fixtures**
 ```python
 from pytest import fixture
+
 @fixture
-def init():
-    print('Launching Browser and Navigating to a URL')
-    yield
-    print('Closing Browser')
-``` 
-* The code before yield statement run's once before every test method and the code after yield statement run's once after the completion of every test method. 
+def spam():
+  print('Connecting to Database')
+  yield
+  print("Closing connection to the Database")
+```
+* The code before yield statement run's once before every test method and the code after yield statement run's once after the completion of every test method.*
 
 **Passing fixture to each test method in a class**
 ```python
 class TestArithmetic:
-    def test_valid_int(self, init):
+    def test_valid_int(self, spam):
         assert int_add(1, 2) == 3
 
-    def test_invalid_data(self, init):
+    def test_invalid_data(self, spam):
         with raises(TypeError):
             int_add(1, 1.2)
+```
+
+**Sample pytest fixture for launching browser and closing browser**
+```python
+from pytest import fixture
+from selenium import webdriver
+
+@fixture
+def _driver():
+    driver = webdriver.Chrome('chromedriver')
+    driver.get("http://google.com")
+    yield driver   # passing driver instance to test method.
+    print('Closing Browser')
+    driver.quit()
+``` 
+```python
+Class TestRegistration:
+    def test_registration(self, _driver):
+       _driver.find_element_by_xpath("//a[text()='Register']")
+       _driver.find_element_by_id("gender-male").click()
+       _driver.find_element_by_id("FirstName").send_keys("hello")
+       _driver.find_element_by_id("LastName").send_keys("world")
+       _driver.find_element_by_id("Email").send_keys("hello.world@company.com")
+       _driver.find_element_by_id("Password").send_keys("Password123")
+       _driver.find_element_by_id("ConfirmPassword").send_keys("Password123")
+       _driver.find_element_by_name("register-button").click()
 ```
 **Scoping of test fixtures**
 * "function" Called once per test function (default)
@@ -190,24 +233,6 @@ class TestArithmetic:
 ```
 * Executing only those test's which are marked as smoke. **pytest test_utility.py -vs -m smoke**
 * Executing only those test's which are marked as regression. **pytest test_utility.py -vs -m regression**
-
-**Parameterizing the tests**
-```python
-from pytest import mark
-from pytest import raises
-
-valid_data = [(1, 2, 3), (10, 20, 30)]
-invalid_data = [(1.2, 1), (1, 1.2), ('1', '2')]
-
-@mark.parametrize("a, b, expected", valid_data)
-def test_valid_int(a, b, expected):
-    assert int_add(a, b) == expected
-
-@mark.parametrize("a, b, expected", invalid_data)
-def test_invalid_data(a, b, expected):
-    with raises(TypeError):
-        int_add(a, b)
-```
 
 **Managing Test Dependency**
 * In order make one test method to depend on the test result of another test method, we need to install a plugin **pytest-dependency**
