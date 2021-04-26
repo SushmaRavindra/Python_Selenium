@@ -150,13 +150,13 @@ def _driver():
 ```python
 Class TestLogin:
     def test_login_steve(self, _driver):
-       _driver.find_element_by_xpath("//a[text()='Log in']")
+       _driver.find_element_by_xpath("//a[text()='Log in']").click()
        _driver.find_element_by_id("Email").send_keys("steve.jobs@company.com")
        _driver.find_element_by_id("Password").send_keys("Password123")
        _driver.quit()
     
     def test_login_bill(self, _driver):
-       _driver.find_element_by_xpath("//a[text()='Log in']")
+       _driver.find_element_by_xpath("//a[text()='Log in']").click()
        _driver.find_element_by_id("Email").send_keys("bill.gates@company.com")
        _driver.find_element_by_id("Password").send_keys("Password123")
        _driver.quit()
