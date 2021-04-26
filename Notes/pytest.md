@@ -204,6 +204,36 @@ Class TestLogin:
        _driver.find_element_by_id("Email").send_keys(email)
        _driver.find_element_by_id("Password").send_keys(password)
 ```
+**Sharing fixtures: conftest.py**
+
+* During implementing your tests you realize that you want to use a fixture function from multiple test files you can move it to a conftest.py file.
+* You don’t need to import the fixture you want to use in a test, it automatically gets discovered by pytest. (Both contest.py and the test module should be in the same package! If contest.py is in other package than the test module, then contest.py module will not be automatically discovered)
+* Pytest checks if the conftest file is present in the current package. If it is not present, if checks at the Project level. If there is a conftest file at project level, the fixture is automatically discovered. 
+* Pytest discovers the conftest automatically if the test module and conftest are inside same package or if the conftest is at project level. 
+* The discovery of fixture functions starts at test classes, then test modules, then conftest.py files.
+
+**conftest.py**
+```python
+from pytest import fixture
+from selenium import webdriver
+
+@fixture
+def init():
+    driver = webdriver.Chrome('./chromedriver')
+    driver.get("http://www.google.com")
+    yield
+    driver.quit()
+```
+
+**Passing driver instance to test method from contest.py**
+```python
+@pytest.fixture
+def init(request):
+    driver = webdriver.Chrome('../test_library/chromedriver')
+    driver.get("http://www.google.com")
+    yield driver
+    driver.quit()
+```
 **Scoping of test fixtures**
 * "function" Called once per test function (default)
 * "module" Called once per module
@@ -279,36 +309,7 @@ pytest --last-failed --last-failed-no-failures none   # run no tests and exit
 ```python
 pytest --html="reports.html"
 ```
-**Sharing fixtures: conftest.py**
 
-* During implementing your tests you realize that you want to use a fixture function from multiple test files you can move it to a conftest.py file.
-* You don’t need to import the fixture you want to use in a test, it automatically gets discovered by pytest. (Both contest.py and the test module should be in the same package! If contest.py is in other package than the test module, then contest.py module will not be automatically discovered)
-* Pytest checks if the conftest file is present in the current package. If it is not present, if checks at the Project level. If there is a conftest file at project level, the fixture is automatically discovered. 
-* Pytest discovers the conftest automatically if the test module and conftest are inside same package or if the conftest is at project level. 
-* The discovery of fixture functions starts at test classes, then test modules, then conftest.py files.
-
-**conftest.py**
-```python
-from pytest import fixture
-from selenium import webdriver
-
-@fixture
-def init():
-    driver = webdriver.Chrome('./chromedriver')
-    driver.get("http://www.google.com")
-    yield
-    driver.quit()
-```
-
-**Passing driver instance to test method from contest.py**
-```python
-@pytest.fixture
-def init(request):
-    driver = webdriver.Chrome('../test_library/chromedriver')
-    driver.get("http://www.google.com")
-    yield driver
-    driver.quit()
-```
 ### Ignoring scripts in certain directories.
 ```python
 tests/
