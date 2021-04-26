@@ -163,23 +163,8 @@ Class TestLogin:
 ```
 
 **setup and teardown method using fixtures**
-```python
-from pytest import fixture
+* The code before yield statement run's once before every test method and the code after yield statement run's once after the completion of every test method
 
-@fixture
-def spam():
-  print('Connecting to Database')
-  yield
-  print("Closing connection to the Database")
-```
-**The code before yield statement run's once before every test method and the code after yield statement run's once after the completion of every test method**
-
-**Passing fixture to each test method in a class**
-```python
-class TestDataBase:
-   def test_count(self, spam):
-      print("Validating DB count")
-```
 **Sample pytest fixture for launching browser and closing browser**
 ```python
 from pytest import fixture
