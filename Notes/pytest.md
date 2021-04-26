@@ -141,6 +141,7 @@ def test_greet(greet):
 from pytest import fixture
 from selenium import webdriver
 
+@fixture
 def _driver():
   driver = webdriver.Chrome("chromedriver")
   driver.get("http://google.com")
