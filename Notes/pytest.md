@@ -171,14 +171,9 @@ def _driver():
 ```python
 Class TestRegistration:
     def test_registration(self, _driver):
-       _driver.find_element_by_xpath("//a[text()='Register']")
-       _driver.find_element_by_id("gender-male").click()
-       _driver.find_element_by_id("FirstName").send_keys("hello")
-       _driver.find_element_by_id("LastName").send_keys("world")
-       _driver.find_element_by_id("Email").send_keys("hello.world@company.com")
+       _driver.find_element_by_xpath("//a[text()='Log in']")
+       _driver.find_element_by_id("Email").send_keys("steve.jobs@company.com")
        _driver.find_element_by_id("Password").send_keys("Password123")
-       _driver.find_element_by_id("ConfirmPassword").send_keys("Password123")
-       _driver.find_element_by_name("register-button").click()
 ```
 **Scoping of test fixtures**
 * "function" Called once per test function (default)
