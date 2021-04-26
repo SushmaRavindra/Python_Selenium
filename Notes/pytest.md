@@ -109,6 +109,20 @@ def test_invalid_data(a, b, expected):
     with raises(TypeError):
         int_add(a, b)
 ```
+```python
+from selenium import webdriver
+from pytest import mark
+
+Class TestLogin:
+   data = [("steve.jobs@compay.com", "Password123"), ("bill.gates@compay.com", "Password123")]
+   @mark.parametrize("email, password", data)
+    def test_login_steve(self, email, password, data):
+       driver = webdriver.Chrome('./chromedriver')
+       driver.get("http://demowebshop.tricentis.com/")
+       driver.find_element_by_xpath("//a[text()='Log in']").click()
+       driver.find_element_by_id("Email").send_keys(email)
+       driver.find_element_by_id("Password").send_keys(password)
+```
 **pytest fixtures**
 * Pytest fixture is a callable (normally a function or a generator) decorated with inbuilt pytest decorator @fixture
 * Fixtures are used for dependency injection or to pass the data to the test functions
@@ -149,17 +163,16 @@ def _driver():
 ```
 
 ```python
+from selenium import webdriver
+from pytest import mark
+
 Class TestLogin:
-    def test_login_steve(self, _driver):
+   data = [("steve.jobs@compay.com", "Password123"), ("bill.gates@compay.com", "Password123")]
+   @mark.parametrize("email, password", data, _driver)
+    def test_login_steve(self, email, password, data):
        _driver.find_element_by_xpath("//a[text()='Log in']").click()
-       _driver.find_element_by_id("Email").send_keys("steve.jobs@company.com")
-       _driver.find_element_by_id("Password").send_keys("Password123")
-       _driver.quit()
-    
-    def test_login_bill(self, _driver):
-       _driver.find_element_by_xpath("//a[text()='Log in']").click()
-       _driver.find_element_by_id("Email").send_keys("bill.gates@company.com")
-       _driver.find_element_by_id("Password").send_keys("Password123")
+       _driver.find_element_by_id("Email").send_keys(email)
+       _driver.find_element_by_id("Password").send_keys(password)
        _driver.quit()
 ```
 
@@ -185,7 +198,7 @@ from pytest import mark
 
 Class TestLogin:
    data = [("steve.jobs@compay.com", "Password123"), ("bill.gates@compay.com", "Password123")]
-   @mark.parametrize("email, password", data)
+   @mark.parametrize("email, password", data, _driver)
     def test_login_steve(self, email, password, _driver):
        _driver.find_element_by_xpath("//a[text()='Log in']").click()
        _driver.find_element_by_id("Email").send_keys(email)
