@@ -142,7 +142,7 @@ def spam():
   yield
   print("Closing connection to the Database")
 ```
-* The code before yield statement run's once before every test method and the code after yield statement run's once after the completion of every test method.*
+**The code before yield statement run's once before every test method and the code after yield statement run's once after the completion of every test method**
 
 **Passing fixture to each test method in a class**
 ```python
