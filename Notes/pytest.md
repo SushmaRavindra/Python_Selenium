@@ -128,10 +128,40 @@ from pytest import fixture
 @fixture
 def greet():
     return "hello world"
- 
+```
+
+```python
+# Passing fixture to test method
 def test_greet(greet):
+    print(greet)
     assert "hello world" == greet
 ```
+**Simple fixture that returns a driver instance**
+```python
+from pytest import fixture
+from selenium import webdriver
+
+def _driver():
+  driver = webdriver.Chrome("chromedriver")
+  driver.get("http://google.com")
+  return driver
+```
+
+```python
+Class TestLogin:
+    def test_login_steve(self, _driver):
+       _driver.find_element_by_xpath("//a[text()='Log in']")
+       _driver.find_element_by_id("Email").send_keys("steve.jobs@company.com")
+       _driver.find_element_by_id("Password").send_keys("Password123")
+       _driver.quit()
+    
+    def test_login_bill(self, _driver):
+       _driver.find_element_by_xpath("//a[text()='Log in']")
+       _driver.find_element_by_id("Email").send_keys("bill.gates@company.com")
+       _driver.find_element_by_id("Password").send_keys("Password123")
+       _driver.quit()
+```
+
 **setup and teardown method using fixtures**
 ```python
 from pytest import fixture
@@ -146,15 +176,10 @@ def spam():
 
 **Passing fixture to each test method in a class**
 ```python
-class TestArithmetic:
-    def test_valid_int(self, spam):
-        assert int_add(1, 2) == 3
-
-    def test_invalid_data(self, spam):
-        with raises(TypeError):
-            int_add(1, 1.2)
+class TestDataBase:
+   def test_count(self, spam):
+      print("Validating DB count")
 ```
-
 **Sample pytest fixture for launching browser and closing browser**
 ```python
 from pytest import fixture
@@ -169,8 +194,8 @@ def _driver():
     driver.quit()
 ``` 
 ```python
-Class TestRegistration:
-    def test_registration(self, _driver):
+Class TestLogin:
+    def test_login(self, _driver):
        _driver.find_element_by_xpath("//a[text()='Log in']")
        _driver.find_element_by_id("Email").send_keys("steve.jobs@company.com")
        _driver.find_element_by_id("Password").send_keys("Password123")
