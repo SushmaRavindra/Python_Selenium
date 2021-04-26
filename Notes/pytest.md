@@ -229,14 +229,6 @@ def fix_func(fix_class):
     print('\n running setup FUNCTION scope')
     yield 
     print('\n running teardown FUNCTION scope')
-
-class TestArithmetic:
-    def test_valid_int(self, fix_func):
-        assert int_add(1, 2) == 3
-
-    def test_invalid_data(self, fix_fun):
-        with raises(TypeError):
-            int_add(1, 1.2)
 ```
 **Grouping test's**
 
