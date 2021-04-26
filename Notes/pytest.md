@@ -167,7 +167,7 @@ Class TestLogin:
 
 **Sample pytest fixture for launching browser and closing browser**
 ```python
-from pytest import fixture
+from pytest import fixture, mark
 from selenium import webdriver
 
 @fixture
@@ -178,12 +178,17 @@ def _driver():
     print('Closing Browser')
     driver.quit()
 ``` 
+
 ```python
+from pytest import mark
+
 Class TestLogin:
-    def test_login(self, _driver):
-       _driver.find_element_by_xpath("//a[text()='Log in']")
-       _driver.find_element_by_id("Email").send_keys("steve.jobs@company.com")
-       _driver.find_element_by_id("Password").send_keys("Password123")
+   data = [("steve.jobs@compay.com", "Password123"), ("bill.gates@compay.com", "Password123")]
+   @mark.parametrize("email, password", data)
+    def test_login_steve(self, _driver):
+       _driver.find_element_by_xpath("//a[text()='Log in']").click()
+       _driver.find_element_by_id("Email").send_keys(email)
+       _driver.find_element_by_id("Password").send_keys(password)
 ```
 **Scoping of test fixtures**
 * "function" Called once per test function (default)
