@@ -229,8 +229,8 @@ def init():
 **Passing driver instance to test method from contest.py**
 ```python
 @pytest.fixture
-def init(request):
-    driver = webdriver.Chrome('../test_library/chromedriver')
+def init():
+    driver = webdriver.Chrome('./chromedriver')
     driver.get("http://www.google.com")
     yield driver
     driver.quit()
