@@ -330,6 +330,7 @@ tests/
 
 pytest --ignore=tests/hello/ # Skips all the scripts inside folder "hello"
 pytest --ignore=tests/foobar/ --ignore=tests/hello/   # Skips all the scripts inside folder "foobar" and "hello"
+pytest --ignore=test_example_01.py  # skips all the tests in module test_exmaple_01.py
 ```
 
 **Parallel execution using xdist.**
