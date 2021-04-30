@@ -26,3 +26,6 @@
 * https://demo.actitime.com/login.do
 * https://services.smartbear.com/samples/TestComplete14/smartstore/
 * http://sampleapp.tricentis.com/101/index.php
+
+# Official Selenium Documentation
+* https://www.selenium.dev/
