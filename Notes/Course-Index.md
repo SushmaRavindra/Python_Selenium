@@ -28,4 +28,4 @@
 * http://sampleapp.tricentis.com/101/index.php
 
 # Official Selenium Documentation
-* https://www.selenium.dev/
+* https://www.selenium.dev/documentation/en/
