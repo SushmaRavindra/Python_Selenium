@@ -10,7 +10,7 @@ Radio Button: <input type="radio"></input>
 
 Checkbox: <input type="checkbox"></input>
 
-File upload window: <input type="file">
+File upload window: <input type="file"></input>
 
 Link: <a href="http://www.google.com">Google</a>
 
