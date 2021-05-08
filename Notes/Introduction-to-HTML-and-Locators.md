@@ -10,6 +10,8 @@ Radio Button: <input type="radio"></input>
 
 Checkbox: <input type="checkbox"></input>
 
+File upload window: <input type="file">
+
 Link: <a href="http://www.google.com">Google</a>
 
 Listbox: <select name="companies">
