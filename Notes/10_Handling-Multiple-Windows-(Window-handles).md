@@ -337,3 +337,5 @@ a.move_to_element(kids).perform()
 sleep(5)
 driver.find_element_by_xpath("(//a[text()='T-Shirts'])[1]").click()
 ```
+**Reference**
+https://peter.sh/experiments/chromium-command-line-switches/
