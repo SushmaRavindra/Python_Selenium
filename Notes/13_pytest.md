@@ -248,19 +248,19 @@ def fix_session():
     print('\n running teardown SESSION scope')
 
 @fixture(scope="module")
-def fix_mod(fix_session):
+def fix_mod():
     print('\n running setup MODULE scope')
     yield
     print('\n running teardown MODULE scope')
 
 @fixture(scope="class")
-def fix_class(fix_mod):
+def fix_class():
     print('\n running setup CLASS scope')
     yield 
     print('\n running teardown CLASS scope')
 
 @fixture()
-def fix_func(fix_class):
+def fix_func():
     print('\n running setup FUNCTION scope')
     yield 
     print('\n running teardown FUNCTION scope')
