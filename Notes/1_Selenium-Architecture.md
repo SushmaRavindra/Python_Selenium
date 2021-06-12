@@ -32,7 +32,10 @@ Selenium officially supports Edge, IE, Chrome, Firefox, Safari, Opera.
 * [Safari WebServices](https://developer.apple.com/documentation/webkit/macos_webdriver_commands_for_safari_11_1_and_earlier)
 * [Microsoft Edge WebServices](https://docs.microsoft.com/en-us/microsoft-edge/edgehtml/webdriver/)
 
- 
+```python
+payload = {"capabilities": {"browserName": "chrome"}}
+r = request("POST", "http://127.0.0.1:9515/session", json=payload)
+```
 
 
 
