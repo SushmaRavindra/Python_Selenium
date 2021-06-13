@@ -33,8 +33,45 @@ Selenium officially supports Edge, IE, Chrome, Firefox, Safari, Opera.
 * [Microsoft Edge WebServices](https://docs.microsoft.com/en-us/microsoft-edge/edgehtml/webdriver/)
 
 ```python
-payload = {"capabilities": {"browserName": "chrome"}}
-r = request("POST", "http://127.0.0.1:9515/session", json=payload)
+# Launch Chrome
+r1 = request('POST', 'http://127.0.0.1:9515/session', json={"capabilities": {"browsername": "chrome"}})
+resp = json.loads(r1.text)
+session_id = resp['value']['sessionId']
+
+# Navigate to a URL
+r2 = request("POST", f'http://127.0.0.1:9515/session/{session_id}/url', json={"url": "http://demowebshop.tricentis.com/"})
+
+# Get Element (Register)
+r3 = request("POST", f'http://127.0.0.1:9515/session/{session_id}/element', json={"using": "link text", "value": "Register"})
+resp = json.loads(r3.text)
+element_id = resp['value']['element-6066-11e4-a52e-4f735466cecf']
+
+# Click on Register
+r4 = request("POST", f'http://127.0.0.1:9515/session/{session_id}/element/{element_id}/click', json={})
+
+# Get Element (Male Radio Button)
+r5 = request("POST", f'http://127.0.0.1:9515/session/{session_id}/element', json={"using": "xpath", "value": "//input[@id='gender-male']"})
+resp = json.loads(r5.text)
+element_id = resp['value']['element-6066-11e4-a52e-4f735466cecf']
+
+# Click on Male Radio Button
+r6 = request("POST", f'http://127.0.0.1:9515/session/{session_id}/element/{element_id}/click', json={})
+
+# Get Element (Firstname)
+r7 = request("POST", f'http://127.0.0.1:9515/session/{session_id}/element', json={"using": "xpath", "value": "//input[@name='FirstName']"})
+resp = json.loads(r7.text)
+element_id = resp['value']['element-6066-11e4-a52e-4f735466cecf']
+
+# Enter Firstname
+r8 = request("POST", f'http://127.0.0.1:9515/session/{session_id}/element/{element_id}/value',json = {"text": "Sandeep", "value": "Sandeep"})
+
+# Get Element (Lastname)
+r9 = request("POST", f'http://127.0.0.1:9515/session/{session_id}/element', json={"using": "xpath", "value": "//input[@name='LastName']"})
+resp = json.loads(r9.text)
+element_id = resp['value']['element-6066-11e4-a52e-4f735466cecf']
+
+# Enter LastName
+r10 = request("POST", f'http://127.0.0.1:9515/session/{session_id}/element/{element_id}/value',json = {"text": "Suryaprasad", "value": "Suryaprasad"})
 ```
 
 
