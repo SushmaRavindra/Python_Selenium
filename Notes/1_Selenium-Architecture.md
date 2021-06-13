@@ -72,6 +72,16 @@ element_id = resp['value']['element-6066-11e4-a52e-4f735466cecf']
 
 # Enter LastName
 r10 = request("POST", f'http://127.0.0.1:9515/session/{session_id}/element/{element_id}/value',json = {"text": "Suryaprasad", "value": "Suryaprasad"})
+
+# Get the title of the webpage
+r11 = request("GET",f'http://127.0.0.1:9515/session/{session_id}/title')
+resp = json.loads(r11.text)
+print(resp['value'])
+
+# Get the Current URL
+r12 =  request("GET",f'http://127.0.0.1:9515/session/{session_id}/url')
+resp = json.loads(r12.text)
+print(resp['value'])
 ```
 
 
